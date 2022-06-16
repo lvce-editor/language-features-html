@@ -1,0 +1,33 @@
+{
+  "id": "builtin.language-features-html",
+  "name": "Language Features HTML",
+  "description": "Provides rich language support for HTML files",
+  "icon": "icon.png",
+  "activation": [
+    "onCompletion:html",
+    "onTabCompletion:html",
+    "onLanguage:html",
+    "onLanguage:handlebars",
+    "onClosingTag:html"
+  ],
+  "main": "src/languageFeaturesHtmlMain.js",
+  "languages": [
+    {
+      "id": "html",
+      "extensions": [".html"]
+    }
+  ],
+  "commands": [
+    {
+      "id": "html.wrapTag",
+      "label": "Html: Wrap Tag"
+    }
+  ],
+  "keyBindings": [
+    {
+      "key": "alt+w",
+      "command": "html.wrapTag",
+      "when": "focus.editor"
+    }
+  ]
+}
