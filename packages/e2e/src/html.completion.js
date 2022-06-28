@@ -1,11 +1,11 @@
+import {
+  expect,
+  runWithExtension,
+  test,
+} from '@lvce-editor/test-with-playwright'
 import { mkdtemp, writeFile } from 'fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'os'
-import {
-  runWithExtension,
-  test,
-  expect,
-} from '@lvce-editor/test-with-playwright'
 
 const getTmpDir = () => {
   return mkdtemp(join(tmpdir(), 'css-completion'))
