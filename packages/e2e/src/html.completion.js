@@ -4,11 +4,11 @@ import {
   test,
 } from '@lvce-editor/test-with-playwright'
 import { mkdtemp, writeFile } from 'fs/promises'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { tmpdir } from 'os'
 
 const getTmpDir = () => {
-  return mkdtemp(join(tmpdir(), 'css-completion'))
+  return mkdtemp(join(tmpdir(), 'html-completion'))
 }
 
 test('html.completion', async () => {
@@ -19,9 +19,16 @@ test('html.completion', async () => {
   })
   const testHtml = page.locator('text=test.html')
   await testHtml.click()
-  const tokenText = page.locator('.Token.Text')
+  const tokenText = page.locator('.Token').first()
   await tokenText.click()
+
+  const cursor = page.locator('.EditorCursor')
+  await expect(cursor).toHaveCount(1)
+  await expect(cursor).toHaveCSS('top', '0px')
+  await expect(cursor).toHaveCSS('left', '0px')
+
   await page.keyboard.press('End')
+  await expect(cursor).toHaveCSS('left', '9px')
   await page.keyboard.press('Control+Space')
 
   const completions = page.locator('#Completions')

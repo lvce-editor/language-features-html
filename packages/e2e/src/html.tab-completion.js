@@ -4,11 +4,11 @@ import {
   test,
 } from '@lvce-editor/test-with-playwright'
 import { mkdtemp, writeFile } from 'fs/promises'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { tmpdir } from 'os'
 
 const getTmpDir = () => {
-  return mkdtemp(join(tmpdir(), 'css-completion'))
+  return mkdtemp(join(tmpdir(), 'html-tab-completion'))
 }
 
 const trimLines = (string) => {
