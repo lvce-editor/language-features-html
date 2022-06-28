@@ -2,14 +2,10 @@ import {
   expect,
   runWithExtension,
   test,
+  getTmpDir,
 } from '@lvce-editor/test-with-playwright'
-import { mkdtemp, writeFile } from 'fs/promises'
-import { tmpdir } from 'node:os'
+import { writeFile } from 'fs/promises'
 import { join } from 'node:path'
-
-const getTmpDir = () => {
-  return mkdtemp(join(tmpdir(), 'html-completion'))
-}
 
 test('html.completion', async () => {
   const tmpDir = await getTmpDir()
