@@ -1,11 +1,10 @@
 import {
   expect,
+  getTmpDir,
   runWithExtension,
   test,
-  getTmpDir,
 } from '@lvce-editor/test-with-playwright'
-import { mkdtemp, writeFile } from 'fs/promises'
-import { tmpdir } from 'node:os'
+import { writeFile } from 'fs/promises'
 import { join } from 'node:path'
 
 const trimLines = (string) => {
@@ -35,9 +34,11 @@ test('html.tab-completion', async () => {
   await expect(editorCursor).toHaveCSS('left', '0px')
 
   await page.keyboard.press('!')
+  const editor = page.locator('.Editor')
+  await expect(editor).toHaveText('!')
+
   await page.keyboard.press('Tab')
 
-  const editor = page.locator('.Editor')
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>
 <html lang="en">
