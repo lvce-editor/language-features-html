@@ -1,36 +1,16 @@
-import {
-  expect,
-  runWithExtension,
-  test,
-  getTmpDir,
-} from '@lvce-editor/test-with-playwright'
-import { writeFile } from 'fs/promises'
-import { join } from 'node:path'
-
 test('html.completion', async () => {
-  const tmpDir = await getTmpDir()
-  await writeFile(join(tmpDir, 'test.html'), '<')
-  const page = await runWithExtension({
-    folder: tmpDir,
-  })
-  const testHtml = page.locator('text=test.html')
-  await testHtml.click()
-  const tokenText = page.locator('.Token').first()
-  await tokenText.click()
+  // arrange
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/test.html`, '<')
+  await Main.openUri(`${tmpDir}/test.html`)
+  await Editor.setCursor(0, 1)
 
-  const cursor = page.locator('.EditorCursor')
-  await expect(cursor).toHaveCount(1)
-  await expect(cursor).toHaveCSS('top', '0px')
-  await expect(cursor).toHaveCSS('left', '0px')
+  // act
+  await Editor.openCompletion()
 
-  await page.keyboard.press('End')
-  await expect(cursor).toHaveCSS('left', '9px')
-  await page.keyboard.press('Control+Space')
-
-  const completions = page.locator('#Completions')
+  // assert
+  const completions = Locator('#Completions')
   await expect(completions).toBeVisible()
-
   const completionItems = completions.locator('.EditorCompletionItem')
-  const completionItemOne = completionItems.nth(0)
-  await expect(completionItemOne).toHaveText('a')
+  await expect(completionItems.nth(0)).toHaveText('a')
 })
