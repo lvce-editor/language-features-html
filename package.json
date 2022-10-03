@@ -4,7 +4,7 @@
   "scripts": {
     "postinstall": "lerna bootstrap --ci",
     "test": "lerna run test",
-    "dev": "npx @lvce-editor/server",
+    "dev": "node ./node_modules/@lvce-editor/server/bin/server.js --only-extension=packages/extension --test-path=packages/e2e",
     "e2e": "cd packages/e2e && npm run e2e",
     "e2e:headless": "cd packages/e2e && npm run e2e:headless"
   },
@@ -12,7 +12,7 @@
   "author": "",
   "type": "module",
   "devDependencies": {
-    "@lvce-editor/server": "^0.7.3",
+    "@lvce-editor/server": "^0.7.4",
     "lerna": "^5.5.4",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
