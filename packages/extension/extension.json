@@ -10,7 +10,7 @@
     "onLanguage:handlebars",
     "onClosingTag:html"
   ],
-  "main": "src/languageFeaturesHtmlMain.js",
+  "browser": "src/languageFeaturesHtmlMain.js",
   "languages": [
     {
       "id": "html",

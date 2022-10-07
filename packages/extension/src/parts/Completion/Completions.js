@@ -1,16 +1,11 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import {
   getTokenAtOffset,
   tokenizeHtml,
   TokenType,
 } from '../../parse/TokenizeHtml.js'
-import * as Root from '../Root/Root.js'
+import * as ImportJson from '../ImportJson/ImportJson.js'
 
-// TODO use import json once supported
-const htmlTags = JSON.parse(
-  readFileSync(join(Root.root, 'data/html-tags.json')).toString()
-)
+const htmlTags = await ImportJson.importJson('data/html-tags.json')
 
 const toHtmlTagCompletion = (htmlTag) => {
   {
