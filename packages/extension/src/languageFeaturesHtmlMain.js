@@ -77,5 +77,5 @@ export const activate = () => {
   vscode.registerCompletionProvider(ExtensionHostCompletionProviderHtml)
   vscode.registerTabCompletionProvider(ExtensionHostTabCompletionProviderHtml)
   vscode.registerCommand(ExtensionHostCommandWrapTag)
-  vscode.onDidChangeTextDocument(onDidChangeTextDocument)
+  // vscode.onDidChangeTextDocument(onDidChangeTextDocument)
 }
