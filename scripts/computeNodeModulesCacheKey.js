@@ -1,8 +1,7 @@
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -15,6 +14,7 @@ const locations = [
   'packages/extension/package-lock.json',
   '.github/workflows/ci.yml',
   '.github/workflows/release.yml',
+  'scripts/computeNodeModulesCacheKey.js',
 ]
 
 const getAbsolutePath = (relativePath) => {
