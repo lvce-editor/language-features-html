@@ -211,10 +211,6 @@ const isIconTheme = (dirent) => {
   return dirent === 'builtin.vscode-icons'
 }
 
-const languageBasicsDirents = extensionDirents.filter(isLanguageBasics)
-const themeDirents = extensionDirents.filter(isTheme)
-const iconThemeDirents = extensionDirents.filter(isIconTheme)
-
 const writeJson = (path, json) => {
   const content = JSON.stringify(json, null, 2) + '\n'
   writeFileSync(path, content)
@@ -231,6 +227,9 @@ const getManifestPath = (dirent) => {
     'extension.json'
   )
 }
+
+const manifests = extensionDirents.map(getManifestPath).map(readJson)
+
 const getLanguages = (extension) => {
   const languages = []
   for (const language of extension.languages || []) {
@@ -241,13 +240,14 @@ const getLanguages = (extension) => {
   }
   return languages
 }
-const languages = languageBasicsDirents
-  .map(getManifestPath)
-  .map(readJson)
-  .flatMap(getLanguages)
+const languages = manifests.flatMap(getLanguages)
 writeJson(join(root, 'dist', commitHash, 'config', 'languages.json'), languages)
 
-for (const languageBasicsDirent of languageBasicsDirents) {
+for (const manifest of manifests) {
+  const { id } = manifest
+  if (!isLanguageBasics(id)) {
+    continue
+  }
   cpSync(
     join(
       root,
@@ -255,9 +255,9 @@ for (const languageBasicsDirent of languageBasicsDirents) {
       '@lvce-editor',
       'shared-process',
       'extensions',
-      languageBasicsDirent
+      id
     ),
-    join(root, 'dist', commitHash, 'extensions', languageBasicsDirent),
+    join(root, 'dist', commitHash, 'extensions', id),
     {
       recursive: true,
     }
@@ -268,8 +268,16 @@ const getThemeName = (dirent) => {
   return dirent.slice('builtin.theme-'.length)
 }
 
-for (const themeDirent of themeDirents) {
-  const themeId = getThemeName(themeDirent)
+const isThemeManifest = (manifest) => {
+  return isTheme(manifest.id)
+}
+
+for (const manifest of manifests) {
+  const { id } = manifest
+  if (!isTheme(id)) {
+    continue
+  }
+  const themeId = getThemeName(id)
   cpSync(
     join(
       root,
@@ -277,18 +285,26 @@ for (const themeDirent of themeDirents) {
       '@lvce-editor',
       'shared-process',
       'extensions',
-      themeDirent,
+      id,
       'color-theme.json'
     ),
     join(root, 'dist', commitHash, 'themes', `${themeId}.json`)
   )
 }
 
-const themeIds = [...themeDirents.map(getThemeName)]
+const getId = (manifest) => {
+  return manifest.id
+}
+
+const themeIds = [...manifests.map(getId).filter(isTheme).map(getThemeName)]
 writeJson(join(root, 'dist', commitHash, 'config', 'themes.json'), themeIds)
 
-for (const iconThemeDirent of iconThemeDirents) {
-  const iconThemeId = iconThemeDirent.slice('builtin.'.length)
+for (const manifest of manifests) {
+  const { id } = manifest
+  if (!isIconTheme(id)) {
+    continue
+  }
+  const iconThemeId = id.slice('builtin.'.length)
   cpSync(
     join(
       root,
@@ -296,7 +312,7 @@ for (const iconThemeDirent of iconThemeDirents) {
       '@lvce-editor',
       'shared-process',
       'extensions',
-      iconThemeDirent,
+      id,
       'icon-theme.json'
     ),
     join(root, 'dist', commitHash, 'icon-themes', `${iconThemeId}.json`)
@@ -308,7 +324,7 @@ for (const iconThemeDirent of iconThemeDirents) {
       '@lvce-editor',
       'shared-process',
       'extensions',
-      iconThemeDirent,
+      id,
       'icons'
     ),
     join(root, 'dist', commitHash, 'file-icons'),
@@ -348,4 +364,49 @@ replaceSync(
   join(root, 'dist', commitHash, 'css', 'App.css'),
   `/${commitHash}`,
   `${pathPrefix}/${commitHash}`
+)
+
+const isWebExtension = (manifest) => {
+  return typeof manifest.browser === 'string'
+}
+
+const webExtensions = manifests.filter(isWebExtension)
+
+const compareId = (a, b) => {
+  return a.id.localeCompare(b.id)
+}
+
+const sortById = (objects) => {
+  return [...objects].sort(compareId)
+}
+
+const mergeWebExtensions = (webExtensions, extensionJson) => {
+  const merged = []
+  const seen = []
+  if (extensionJson.browser) {
+    seen.push(extensionJson.id)
+    merged.push({
+      ...extensionJson,
+      isWeb: true,
+      path: `${pathPrefix}/${commitHash}/extensions/${extensionJson.id}`,
+    })
+  }
+  for (const webExtension of webExtensions) {
+    if (seen.includes(webExtension.id)) {
+      continue
+    }
+    merged.push({
+      ...webExtension,
+      isWeb: true,
+      path: `${pathPrefix}/${commitHash}/extensions/${webExtension.id}`,
+    })
+  }
+  const sorted = sortById(merged)
+  return sorted
+}
+
+const mergedWebExtensions = mergeWebExtensions(webExtensions, extensionJson)
+writeJson(
+  join(root, 'dist', commitHash, 'config', 'webExtensions.json'),
+  mergedWebExtensions
 )
