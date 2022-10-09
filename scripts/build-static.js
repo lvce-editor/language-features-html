@@ -43,6 +43,11 @@ fs.cpSync(
   { recursive: true }
 )
 fs.cpSync(
+  join(root, 'packages', 'extension', 'data'),
+  join(root, 'dist', commitHash, 'extensions', id, 'data'),
+  { recursive: true }
+)
+fs.cpSync(
   join(root, 'packages', 'extension', 'extension.json'),
   join(root, 'dist', commitHash, 'extensions', id, 'extension.json'),
   { recursive: true }
