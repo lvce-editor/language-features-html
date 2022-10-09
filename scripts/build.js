@@ -22,6 +22,7 @@ delete packageJson.xo
 delete packageJson.jest
 delete packageJson.prettier
 delete packageJson.devDependencies
+delete packageJson.scripts
 
 fs.writeFileSync(
   join(root, 'dist', 'package.json'),
