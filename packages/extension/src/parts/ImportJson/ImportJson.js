@@ -5,14 +5,17 @@ const importJsonNode = async (path) => {
 }
 
 const importJsonBrowser = async (path) => {
-  console.log(import.meta.url)
-  const absolutePath = import.meta.resolve(`../../../${path}`)
-  const response = await fetch(absolutePath)
-  if (!response.ok) {
-    throw new Error(response.statusText)
+  try {
+    const absolutePath = import.meta.resolve(`../../../${path}`)
+    const response = await fetch(absolutePath)
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    const json = await response.json()
+    return json
+  } catch (error) {
+    throw new Error(`Failed to import ${path}: ${error}`)
   }
-  const json = await response.json()
-  return json
 }
 
 // TODO use import json once supported
