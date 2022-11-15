@@ -75,7 +75,7 @@ export const htmlTabCompletion = (text, offset) => {
     }
   }
   return {
-    inserted: `<${wordAtOffset}></${wordAtOffset}>`,
+    inserted: `<${wordAtOffset}>$0</${wordAtOffset}>`,
     deleted: wordAtOffset.length,
     type: /* Snippet */ 2,
   }
