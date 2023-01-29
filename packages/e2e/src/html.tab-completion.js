@@ -2,7 +2,9 @@ const trimLines = (string) => {
   return string.split('\n').join('')
 }
 
-test('html.tab-completion', async () => {
+export const name = 'html.tab-completion'
+
+export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.html`, '!')
@@ -26,4 +28,4 @@ test('html.tab-completion', async () => {
   </body>
 </html>`)
   )
-})
+}
