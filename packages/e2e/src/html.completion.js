@@ -1,4 +1,6 @@
-test('html.completion', async () => {
+export const name = 'html.completion'
+
+export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.html`, '<')
@@ -13,4 +15,4 @@ test('html.completion', async () => {
   await expect(completions).toBeVisible()
   const completionItems = completions.locator('.EditorCompletionItem')
   await expect(completionItems.nth(0)).toHaveText('a')
-})
+}
