@@ -1,4 +1,5 @@
 import { exportStatic } from '@lvce-editor/shared-process'
+import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -10,3 +11,45 @@ await exportStatic({
   testPath: 'packages/e2e',
   root,
 })
+
+const RE_COMMIT_HASH = /^[a-z\d]+$/
+const isCommitHash = (dirent) => {
+  return dirent.length === 7 && dirent.match(RE_COMMIT_HASH)
+}
+
+const dirents = await readdir(path.join(root, 'dist'))
+const commitHash = dirents.find(isCommitHash) || ''
+
+for (const dirent of ['src', 'data']) {
+  await cp(
+    path.join(root, 'packages', 'html-worker', dirent),
+    path.join(
+      root,
+      'dist',
+      commitHash,
+      'extensions',
+      'builtin.language-features-html',
+      'html-worker',
+      dirent
+    ),
+    { recursive: true, force: true }
+  )
+}
+
+const workerUrlFilePath = path.join(
+  root,
+  'dist',
+  commitHash,
+  'extensions',
+  'builtin.language-features-html',
+  'src',
+  'parts',
+  'HtmlWorkerUrl',
+  'HtmlWorkerUrl.js'
+)
+const oldContent = await readFile(workerUrlFilePath, 'utf8')
+const newContent = oldContent.replace(
+  '../../../../html-worker/src/htmlWorkerMain.js',
+  '../../../html-worker/src/htmlWorkerMain.js'
+)
+await writeFile(workerUrlFilePath, newContent)
