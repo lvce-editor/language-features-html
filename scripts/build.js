@@ -1,5 +1,5 @@
 import { execSync } from 'child_process'
-import fs, { readFileSync } from 'fs'
+import fs, { readFileSync, writeFileSync } from 'fs'
 import path, { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { packageExtension } from '@lvce-editor/package-extension'
@@ -10,6 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const root = path.join(__dirname, '..')
 const extension = path.join(root, 'packages', 'extension')
+const htmlWorker = path.join(root, 'packages', 'html-worker')
 
 fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 
@@ -37,7 +38,10 @@ fs.copyFileSync(
 fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
   recursive: true,
 })
-fs.cpSync(join(extension, 'data'), join(root, 'dist', 'data'), {
+fs.cpSync(join(htmlWorker, 'src'), join(root, 'dist', 'html-worker', 'src'), {
+  recursive: true,
+})
+fs.cpSync(join(htmlWorker, 'data'), join(root, 'dist', 'html-worker', 'data'), {
   recursive: true,
 })
 
@@ -48,28 +52,24 @@ const getAllDependencies = (obj) => {
   return [obj, ...Object.values(obj.dependencies).flatMap(getAllDependencies)]
 }
 
-const getDependencies = () => {
-  const stdout = execSync('npm list --omit=dev --parseable --all', {
-    cwd: extension,
-  }).toString()
-  const lines = stdout.split('\n')
-  return lines.slice(1, -1)
-}
-
-const dependencies = getDependencies()
-for (const dependency of dependencies) {
-  fs.cpSync(
-    dependency,
-    join(root, 'dist', dependency.slice(extension.length)),
-    {
-      recursive: true,
-    }
-  )
-}
-
 for (const notNeeded of NOT_NEEDED) {
   fs.rmSync(join(root, 'dist', notNeeded), { force: true, recursive: true })
 }
+
+const workerUrlFilePath = path.join(
+  root,
+  'dist',
+  'src',
+  'parts',
+  'HtmlWorkerUrl',
+  'HtmlWorkerUrl.js'
+)
+const oldContent = readFileSync(workerUrlFilePath, 'utf8')
+const newContent = oldContent.replace(
+  '../../../../html-worker/src/htmlWorkerMain.js',
+  '../../../html-worker/src/htmlWorkerMain.js'
+)
+writeFileSync(workerUrlFilePath, newContent)
 
 await packageExtension({
   highestCompression: true,
