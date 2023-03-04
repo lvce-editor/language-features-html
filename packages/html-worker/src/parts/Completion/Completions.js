@@ -57,7 +57,7 @@ const CLOSING_TAG_COMPLETIONS = [
  * @param {string} text
  * @param {number} offset
  */
-export const htmlCompletion = (text, offset) => {
+export const htmlCompletion = (uri, text, offset) => {
   // TODO try catch is slow
   // is it necessary here or in extension host service?
   try {
