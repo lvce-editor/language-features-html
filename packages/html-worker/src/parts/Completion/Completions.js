@@ -1,6 +1,9 @@
+import * as GetAttributeNameCompletions from '../GetAttributeNameCompletions/GetAttributeNameCompletions.js'
+import * as GetClosingTagCompletions from '../GetClosingTagCompletions/GetClosingTagCompletions.js'
+import * as GetHtmlTagCompletions from '../GetHtmlTagCompletions/GetHtmlTagCompletions.js'
+import * as ImportJson from '../ImportJson/ImportJson.js'
 import { getTokenAtOffset, tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
 import * as TokenType from '../TokenType/TokenType.js'
-import * as ImportJson from '../ImportJson/ImportJson.js'
 
 const htmlTags = await ImportJson.importJson('data/html-tags.json')
 
@@ -14,40 +17,7 @@ const HTML_TAG_COMPLETIONS = htmlTags.map(toHtmlTagCompletion)
 
 const NO_COMPLETIONS = []
 
-const ATTRIBUTE_NAME_COMPLETIONS = [
-  {
-    label: 'class',
-    snippet: 'class="$1"',
-    kind: /* Value */ 2,
-  },
-  {
-    label: 'id',
-    snippet: 'id="$1"',
-    kind: /* Value */ 2,
-  },
-  {
-    label: 'tabindex',
-    snippet: 'tabindex="$1"',
-    kind: /* Value */ 2,
-  },
-]
-
 // TODO completions should have property offset?
-
-const CLOSING_TAG_COMPLETIONS = [
-  {
-    label: 'h1',
-    snippet: 'h1',
-  },
-  {
-    label: 'h2',
-    snippet: 'h2',
-  },
-  {
-    label: 'h3',
-    snippet: 'h3',
-  },
-]
 
 /**
  *
@@ -64,14 +34,14 @@ export const htmlCompletion = (uri, text, offset) => {
       case TokenType.OpeningAngleBracket:
       case TokenType.TagNameStart:
       case TokenType.WhitespaceAfterOpeningTagOpenAngleBracket:
-        return HTML_TAG_COMPLETIONS
+        return GetHtmlTagCompletions.getHtmlTagCompletions()
       case TokenType.WhitespaceInsideOpeningTag:
       case TokenType.AttributeName:
       case TokenType.ClosingAngleBracket:
-        return ATTRIBUTE_NAME_COMPLETIONS
+        return GetAttributeNameCompletions.getAttributeNameCompletions()
       case TokenType.WhitespaceAfterClosingTagSlash:
       case TokenType.ClosingTagSlash:
-        return CLOSING_TAG_COMPLETIONS
+        return GetClosingTagCompletions.getClosingTagCompletions()
       default:
     }
   } catch (error) {
