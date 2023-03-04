@@ -53,3 +53,21 @@ test('after doctype', () => {
     kind: 1,
   })
 })
+
+test('css completion', () => {
+  expect(
+    htmlCompletion(
+      '',
+      `<style>
+h1 {
+
+}
+`,
+      13
+    )
+  ).toContainEqual({
+    label: 'color',
+    snippet: 'color: ',
+    kind: 1,
+  })
+})
