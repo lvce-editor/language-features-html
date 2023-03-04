@@ -1,4 +1,5 @@
-import { tokenizeHtml, TokenType } from '../src/parse/TokenizeHtml.js'
+import { tokenizeHtml } from '../src/parts/TokenizeHtml/TokenizeHtml.js'
+import * as TokenType from '../src/parts/TokenType/TokenType.js'
 
 const expectTokenizeHtml = (html) => ({
   toEqual(expectedTokens) {

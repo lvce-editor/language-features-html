@@ -1,5 +1,5 @@
-import { tokenizeHtml, TokenType } from './TokenizeHtml.js'
-
+import { tokenizeHtml } from '../parts/TokenizeHtml/TokenizeHtml.js'
+import * as TokenType from '../parts/TokenType/TokenType.js'
 const createNode = (tag, parent, children, start, end) => {
   return {
     tag,

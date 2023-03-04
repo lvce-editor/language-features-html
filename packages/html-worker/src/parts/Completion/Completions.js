@@ -1,11 +1,19 @@
-import {
-  getTokenAtOffset,
-  tokenizeHtml,
-  TokenType,
-} from '../../parse/TokenizeHtml.js'
 import * as GetAttributeNameCompletions from '../GetAttributeNameCompletions/GetAttributeNameCompletions.js'
 import * as GetClosingTagCompletions from '../GetClosingTagCompletions/GetClosingTagCompletions.js'
 import * as GetHtmlTagCompletions from '../GetHtmlTagCompletions/GetHtmlTagCompletions.js'
+import * as ImportJson from '../ImportJson/ImportJson.js'
+import { getTokenAtOffset, tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as TokenType from '../TokenType/TokenType.js'
+
+const htmlTags = await ImportJson.importJson('data/html-tags.json')
+
+const toHtmlTagCompletion = (htmlTag) => {
+  {
+    return { ...htmlTag, kind: /* Property */ 1 }
+  }
+}
+
+const HTML_TAG_COMPLETIONS = htmlTags.map(toHtmlTagCompletion)
 
 const NO_COMPLETIONS = []
 
