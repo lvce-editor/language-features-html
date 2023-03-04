@@ -1,4 +1,4 @@
-export const skip = true
+export const skip = false
 
 export const name = 'html.css-completion'
 

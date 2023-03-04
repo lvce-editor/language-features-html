@@ -1,8 +1,5 @@
-import {
-  getTokenAtOffset,
-  tokenizeHtml,
-  TokenType,
-} from '../../parse/TokenizeHtml.js'
+import { getTokenAtOffset, tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as TokenType from '../TokenType/TokenType.js'
 
 const RE_WORD = /[a-zA-Z\d]+$/
 
