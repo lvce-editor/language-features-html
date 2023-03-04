@@ -60,7 +60,6 @@ export const htmlCompletion = (uri, text, offset) => {
   try {
     const tokens = tokenizeHtml(text)
     const tokenAtOffset = getTokenAtOffset(tokens, offset)
-    console.log({ tokenAtOffset })
     switch (tokenAtOffset.type) {
       case TokenType.OpeningAngleBracket:
       case TokenType.TagNameStart:
