@@ -49,7 +49,7 @@ const getWordAtOffset = (text, offset) => {
 }
 
 // TODO tab completion should not trigger auto completion from document change again
-export const htmlTabCompletion = (text, offset) => {
+export const htmlTabCompletion = (uri, text, offset) => {
   // console.time('get word at offset')
   const wordAtOffset = getWordAtOffset(text, offset)
   console.log({ wordAtOffset })
