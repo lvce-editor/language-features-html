@@ -237,18 +237,28 @@ export const tokenizeHtml = (text) => {
  * @param {number} offset
  * @returns {any}
  */
-export const getTokenAtOffset = (tokens, offset) => {
+export const getTokenIndexAtOffset = (tokens, offset) => {
   // TODO binary search
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
     if (token.offset >= offset) {
       if (token.offset === offset) {
-        return token
+        return i
       }
-      return tokens[i - 1]
+      return i - 1
     }
   }
-  return tokens[tokens.length - 1]
+  return tokens.length - 1
+}
+
+/**
+ * @param {any[]} tokens
+ * @param {number} offset
+ * @returns {any}
+ */
+export const getTokenAtOffset = (tokens, offset) => {
+  const index = getTokenIndexAtOffset(tokens, offset)
+  return tokens[index]
 }
 
 // tokenizeHtml(`<!DOCTYPE html>

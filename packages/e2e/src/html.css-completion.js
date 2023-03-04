@@ -1,5 +1,3 @@
-export const skip = true
-
 export const name = 'html.css-completion'
 
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
@@ -24,5 +22,5 @@ h1 {
   await expect(completions).toBeVisible()
   const completionItems = completions.locator('.EditorCompletionItem')
   // TODO
-  await expect(completionItems.nth(0)).toHaveText('a')
+  await expect(completionItems.nth(0)).toHaveText('color')
 }
