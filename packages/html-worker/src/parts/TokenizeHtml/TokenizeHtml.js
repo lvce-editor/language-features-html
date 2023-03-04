@@ -1,3 +1,5 @@
+import * as TokenType from '../TokenType/TokenType.js'
+
 const State = {
   TopLevelContent: 1,
   AfterOpeningAngleBracket: 2,
@@ -12,29 +14,6 @@ const State = {
   AfterAttributeValueClosingQuote: 11,
   AfterExclamationMark: 16,
   InsideComment: 17,
-}
-
-export const TokenType = {
-  None: 0,
-  OpeningAngleBracket: 1,
-  ClosingAngleBracket: 2,
-  TagNameStart: 3,
-  TagNameEnd: 4,
-  Content: 5,
-  ClosingTagSlash: 6,
-  WhitespaceInsideOpeningTag: 7,
-  AttributeName: 8,
-  AttributeEqualSign: 9,
-  AttributeQuoteStart: 10,
-  AttributeValue: 11,
-  AttributeQuoteEnd: 12,
-  WhitespaceAfterClosingTagSlash: 13,
-  WhitespaceAfterOpeningTagOpenAngleBracket: 14,
-  ExclamationMark: 15,
-  Doctype: 16,
-  StartCommentDashes: 17,
-  Comment: 18,
-  EndCommentTag: 19,
 }
 
 const RE_ANGLE_BRACKET_OPEN = /^</

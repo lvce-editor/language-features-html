@@ -1,8 +1,5 @@
-import {
-  getTokenAtOffset,
-  tokenizeHtml,
-  TokenType,
-} from '../../parse/TokenizeHtml.js'
+import { getTokenAtOffset, tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as TokenType from '../TokenType/TokenType.js'
 import * as ImportJson from '../ImportJson/ImportJson.js'
 
 const htmlTags = await ImportJson.importJson('data/html-tags.json')
