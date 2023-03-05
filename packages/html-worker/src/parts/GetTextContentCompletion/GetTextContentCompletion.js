@@ -3,18 +3,21 @@ import * as GetTextContentCompletionScript from '../GetTextContentCompletionScri
 import * as GetTextContentCompletionStyle from '../GetTextContentCompletionStyle/GetTextContentCompletionStyle.js'
 import * as TagName from '../TagName/TagName.js'
 
-export const getTextContentCompletion = (text, tokens, index, offset) => {
+export const getTextContentCompletion = (uri, text, tokens, index, offset) => {
   const { startTagIndex, startTag, endTagIndex } =
     GetEmbeddedContent.getEmbeddedContent(tokens, index)
   const embeddedContent = text.slice(startTagIndex, endTagIndex)
-  const completionsRelativeIndex = offset - startTagIndex
+  const relativeOffset = offset - startTagIndex
   switch (startTag) {
     case TagName.Script:
-      return GetTextContentCompletionScript.getTextContentCompletionScript()
+      return GetTextContentCompletionScript.getTextContentCompletionScript(
+        uri,
+        relativeOffset
+      )
     case TagName.Style:
       return GetTextContentCompletionStyle.getTextContentCompletionStyle(
         embeddedContent,
-        completionsRelativeIndex
+        relativeOffset
       )
     default:
       return []
