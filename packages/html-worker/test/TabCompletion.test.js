@@ -79,3 +79,33 @@ h1 {
     type: /* Snippet */ 2,
   })
 })
+
+test('style tag', () => {
+  expect(
+    htmlTabCompletion(
+      ``,
+      `<h1></h1>
+style`,
+      15
+    )
+  ).toEqual({
+    inserted: '<style>$0</style>',
+    deleted: 5,
+    type: /* Snippet */ 2,
+  })
+})
+
+test('after style tag', () => {
+  expect(
+    htmlTabCompletion(
+      ``,
+      `<style></style>
+h1`,
+      18
+    )
+  ).toEqual({
+    inserted: '<h1>$0</h1>',
+    deleted: 2,
+    type: /* Snippet */ 2,
+  })
+})
