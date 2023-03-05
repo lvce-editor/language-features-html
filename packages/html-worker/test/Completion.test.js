@@ -54,7 +54,7 @@ test('after doctype', () => {
   })
 })
 
-test('css completion', () => {
+test('css property name completion', () => {
   expect(
     htmlCompletion(
       '',

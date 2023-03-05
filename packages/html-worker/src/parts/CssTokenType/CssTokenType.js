@@ -1,0 +1,9 @@
+export const Selector = 1
+export const Whitespace = 2
+export const Punctuation = 3
+export const PropertyName = 4
+export const PropertyValue = 5
+export const CurlyOpen = 6
+export const CurlyClose = 7
+export const PropertyColon = 8
+export const PropertySemicolon = 9

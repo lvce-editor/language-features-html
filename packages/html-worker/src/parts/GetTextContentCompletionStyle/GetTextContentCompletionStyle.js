@@ -1,9 +1,5 @@
-export const getTextContentCompletionStyle = () => {
-  return [
-    {
-      label: 'color',
-      snippet: 'color: ',
-      kind: /* Property */ 1,
-    },
-  ]
+import * as CssCompletion from '../CssCompletion/CssCompletion.js'
+
+export const getTextContentCompletionStyle = (text, offset) => {
+  return CssCompletion.cssCompletion(text, offset)
 }

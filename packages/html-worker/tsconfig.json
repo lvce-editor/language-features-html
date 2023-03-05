@@ -15,5 +15,5 @@
     "strict": true,
     "noImplicitAny": false
   },
-  "include": ["src", "test"]
+  "include": ["src", "data", "test"]
 }

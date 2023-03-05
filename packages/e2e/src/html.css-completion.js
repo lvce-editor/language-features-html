@@ -22,5 +22,5 @@ h1 {
   await expect(completions).toBeVisible()
   const completionItems = completions.locator('.EditorCompletionItem')
   // TODO
-  await expect(completionItems.nth(0)).toHaveText('color')
+  await expect(completionItems.nth(0)).toHaveText('text-decoration')
 }
