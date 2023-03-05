@@ -3,6 +3,7 @@ import fs, { readFileSync, writeFileSync } from 'fs'
 import path, { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { packageExtension } from '@lvce-editor/package-extension'
+import { cp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 
 const NOT_NEEDED = []
 
@@ -70,6 +71,53 @@ const newContent = oldContent.replace(
   '../../../html-worker/src/htmlWorkerMain.js'
 )
 writeFileSync(workerUrlFilePath, newContent)
+
+const typeScriptLibPath = join(root, 'node_modules', 'typescript', 'lib')
+const typeScriptPath = join(root, 'node_modules', 'typescript')
+
+const replace = async (path, occurrence, replacement) => {
+  const oldContent = await readFile(path, 'utf8')
+  const newContent = oldContent.replace(occurrence, replacement)
+  await writeFile(path, newContent)
+}
+
+await mkdir(join(root, 'dist', 'typescript'))
+
+const typescriptDirents = await readdir(typeScriptLibPath)
+for (const typeScriptDirent of typescriptDirents) {
+  if (
+    typeScriptDirent.startsWith('lib.') ||
+    typeScriptDirent === 'typescript.js'
+  ) {
+    await cp(
+      join(typeScriptLibPath, typeScriptDirent),
+      join(root, 'dist', 'typescript', 'lib', typeScriptDirent)
+    )
+  }
+}
+
+for (const dirent of ['README.md', 'LICENSE.txt', 'package.json']) {
+  await cp(
+    join(typeScriptPath, dirent),
+    join(root, 'dist', 'typescript', dirent)
+  )
+}
+
+const typescriptPathFile = path.join(
+  root,
+  'dist',
+  'html-worker',
+  'src',
+  'parts',
+  'TypeScriptPath',
+  'TypeScriptPath.js'
+)
+
+await replace(
+  typescriptPathFile,
+  '../../../../../node_modules/typescript/lib',
+  `../../../../typescript/lib`
+)
 
 await packageExtension({
   highestCompression: true,
