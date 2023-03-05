@@ -1,27 +1,27 @@
-const snippets = {
-  input: '<input type="$0">$1',
-  hr: '<hr>$0',
-  br: '<br>$0',
-  meta: '<meta>$0',
-  div: '<div>\n\t$0\n</div>',
-  h1: '<h1>$0</h1>',
-  form: '<form action="">\n\n$0\n</form>',
-  img: '<img src="" alt="">',
-  a: '<a href="">$0</a>',
-  script: '<script type="module" src="$0"></script>',
-}
+import * as GetTabCompletionContentHtml from '../GetTabCompletionContentHtml/GetTabCompletionContentHtml.js'
+import * as GetTabCompletionContentStyle from '../GetTabCompletionContentStyle/GetTabCompletionContent.js'
+import * as GetEmbeddedContent from '../GetEmbeddedContent/GetEmbeddedContent.js'
+import * as TagName from '../TagName/TagName.js'
+import * as Assert from '../Assert/Assert.js'
 
-export const getTabCompletionContent = (wordAtOffset) => {
-  if (snippets.hasOwnProperty(wordAtOffset)) {
-    return {
-      inserted: snippets[wordAtOffset],
-      deleted: wordAtOffset.length,
-      type: /* Snippet */ 2,
-    }
-  }
-  return {
-    inserted: `<${wordAtOffset}>$0</${wordAtOffset}>`,
-    deleted: wordAtOffset.length,
-    type: /* Snippet */ 2,
+export const getTabCompletion = (text, tokens, index, offset) => {
+  Assert.string(text)
+  Assert.array(tokens)
+  Assert.number(index)
+  Assert.number(offset)
+  const { startTagIndex, startTag, endTagIndex } =
+    GetEmbeddedContent.getEmbeddedContent(tokens, index)
+  const embeddedContent = text.slice(startTagIndex, endTagIndex)
+  const completionsRelativeIndex = offset - startTagIndex
+  switch (startTag) {
+    case TagName.Style:
+      return GetTabCompletionContentStyle.getTabCompletionContent(
+        embeddedContent,
+        completionsRelativeIndex
+      )
+    case TagName.Script:
+      return []
+    default:
+      return GetTabCompletionContentHtml.getTabCompletion(text)
   }
 }

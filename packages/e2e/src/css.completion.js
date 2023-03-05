@@ -1,4 +1,4 @@
-export const name = 'html.css-completion'
+export const name = 'css.completion'
 
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
