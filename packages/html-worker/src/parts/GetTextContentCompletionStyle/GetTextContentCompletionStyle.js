@@ -1,5 +1,5 @@
 import * as CssCompletion from '../CssCompletion/CssCompletion.js'
 
-export const getTextContentCompletionStyle = (text, offset) => {
+export const getCompletion = (uri, text, offset) => {
   return CssCompletion.cssCompletion(text, offset)
 }

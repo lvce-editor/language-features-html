@@ -1,26 +1,35 @@
 import * as GetEmbeddedContent from '../GetEmbeddedContent/GetEmbeddedContent.js'
-import * as GetTextContentCompletionScript from '../GetTextContentCompletionScript/GetTextContentCompletionScript.js'
-import * as GetTextContentCompletionStyle from '../GetTextContentCompletionStyle/GetTextContentCompletionStyle.js'
 import * as TagName from '../TagName/TagName.js'
 
-export const getTextContentCompletion = (uri, text, tokens, index, offset) => {
+const getModule = (tagName) => {
+  switch (tagName) {
+    case TagName.Script:
+      return import(
+        '../GetTextContentCompletionScript/GetTextContentCompletionScript.js'
+      )
+    case TagName.Style:
+      return import(
+        '../GetTextContentCompletionStyle/GetTextContentCompletionStyle.js'
+      )
+    default:
+      return undefined
+  }
+}
+
+export const getTextContentCompletion = async (
+  uri,
+  text,
+  tokens,
+  index,
+  offset
+) => {
   const { startTagIndex, startTag, endTagIndex } =
     GetEmbeddedContent.getEmbeddedContent(tokens, index)
   const embeddedContent = text.slice(startTagIndex, endTagIndex)
   const relativeOffset = offset - startTagIndex
-  switch (startTag) {
-    case TagName.Script:
-      return GetTextContentCompletionScript.getTextContentCompletionScript(
-        uri,
-        embeddedContent,
-        relativeOffset
-      )
-    case TagName.Style:
-      return GetTextContentCompletionStyle.getTextContentCompletionStyle(
-        embeddedContent,
-        relativeOffset
-      )
-    default:
-      return []
+  const module = await getModule(startTag)
+  if (!module) {
+    return []
   }
+  return module.getCompletion(uri, embeddedContent, relativeOffset)
 }
