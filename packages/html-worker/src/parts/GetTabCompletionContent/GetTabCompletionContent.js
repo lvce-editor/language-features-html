@@ -4,7 +4,7 @@ import * as GetEmbeddedContent from '../GetEmbeddedContent/GetEmbeddedContent.js
 import * as TagName from '../TagName/TagName.js'
 import * as Assert from '../Assert/Assert.js'
 
-export const getTabCompletion = (text, tokens, index, offset) => {
+export const getTabCompletion = (text, tokens, index, offset, wordAtOffset) => {
   Assert.string(text)
   Assert.array(tokens)
   Assert.number(index)
@@ -22,6 +22,6 @@ export const getTabCompletion = (text, tokens, index, offset) => {
     case TagName.Script:
       return []
     default:
-      return GetTabCompletionContentHtml.getTabCompletion(text)
+      return GetTabCompletionContentHtml.getTabCompletion(wordAtOffset)
   }
 }

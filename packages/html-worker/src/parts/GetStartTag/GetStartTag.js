@@ -17,8 +17,15 @@ const getEndOfStartTag = (tokens, index) => {
 export const getStartTag = (tokens, index) => {
   for (let i = index; i >= 0; i--) {
     const token = tokens[i]
+    switch (token.type) {
+      case TokenType.TagNameStart:
+        return getEndOfStartTag(tokens, i)
+      case TokenType.TagNameEnd:
+        return { startTagIndex: token.offset + 1, startTag: '' }
+      default:
+        break
+    }
     if (token.type === TokenType.TagNameStart) {
-      return getEndOfStartTag(tokens, i)
     }
   }
   return { startTagIndex: 0, startTag: '' }

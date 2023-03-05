@@ -29,7 +29,8 @@ export const htmlTabCompletion = (uri, text, offset) => {
         text,
         tokens,
         index,
-        offset
+        offset,
+        wordAtOffset
       )
     default:
       return undefined
