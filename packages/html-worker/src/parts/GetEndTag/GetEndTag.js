@@ -8,5 +8,5 @@ export const getEndTag = (tokens, index) => {
     }
   }
   const lastToken = tokens[tokens.length - 1]
-  return { endTagIndex: lastToken.offset, endTag: '' }
+  return { endTagIndex: lastToken.offset + lastToken.text.length, endTag: '' }
 }
