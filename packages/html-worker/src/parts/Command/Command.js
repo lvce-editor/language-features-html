@@ -17,7 +17,7 @@ const getFn = (method) => {
   }
 }
 
-export const execute = async (method, params) => {
+export const execute = async (method, ...params) => {
   const fn = getFn(method)
   // @ts-ignore
   const result = await fn(...params)
