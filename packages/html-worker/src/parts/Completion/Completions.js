@@ -38,6 +38,7 @@ export const htmlCompletion = (uri, text, offset) => {
         return GetClosingTagCompletions.getClosingTagCompletions()
       case TokenType.Content:
         return GetTextContentCompletion.getTextContentCompletion(
+          uri,
           text,
           tokens,
           index,

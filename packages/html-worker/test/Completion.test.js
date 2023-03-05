@@ -1,20 +1,20 @@
 import { htmlCompletion } from '../src/parts/Completion/Completions.js'
 
-test('start tag completions', () => {
-  expect(htmlCompletion('', '<', 1)).toContainEqual({
+test('start tag completions', async () => {
+  expect(await htmlCompletion('', '<', 1)).toContainEqual({
     label: 'h1',
     snippet: 'h1',
     kind: 1,
   })
-  expect(htmlCompletion('', '<', 1)).toContainEqual({
+  expect(await htmlCompletion('', '<', 1)).toContainEqual({
     label: 'h2',
     snippet: 'h2',
     kind: 1,
   })
 })
 
-test('attribute name completions', () => {
-  expect(htmlCompletion('', '<h1 >', 4)).toEqual([
+test('attribute name completions', async () => {
+  expect(await htmlCompletion('', '<h1 >', 4)).toEqual([
     {
       label: 'class',
       snippet: 'class="$1"',
@@ -33,30 +33,30 @@ test('attribute name completions', () => {
   ])
 })
 
-test('inside content', () => {
-  expect(htmlCompletion('', '<h1>hello world</h1>', 4)).toEqual([])
-  expect(htmlCompletion('', '<h1>hello world</h1>', 6)).toEqual([])
+test('inside content', async () => {
+  expect(await htmlCompletion('', '<h1>hello world</h1>', 4)).toEqual([])
+  expect(await htmlCompletion('', '<h1>hello world</h1>', 6)).toEqual([])
 })
 
-test('nested completions', () => {
-  expect(htmlCompletion('', '<a><abbr>  <article><', 21)).toContainEqual({
+test('nested completions', async () => {
+  expect(await htmlCompletion('', '<a><abbr>  <article><', 21)).toContainEqual({
     label: 'h1',
     snippet: 'h1',
     kind: 1,
   })
 })
 
-test('after doctype', () => {
-  expect(htmlCompletion('', '<!DOCTYPE html>ab<', 18)).toContainEqual({
+test('after doctype', async () => {
+  expect(await htmlCompletion('', '<!DOCTYPE html>ab<', 18)).toContainEqual({
     label: 'h1',
     snippet: 'h1',
     kind: 1,
   })
 })
 
-test('css property name completion', () => {
+test('css property name completion', async () => {
   expect(
-    htmlCompletion(
+    await htmlCompletion(
       '',
       `<style>
 h1 {
