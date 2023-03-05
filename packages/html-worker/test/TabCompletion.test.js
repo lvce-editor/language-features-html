@@ -61,3 +61,21 @@ test('snippet - form', () => {
 test('at end of tag', () => {
   expect(htmlTabCompletion('', '<h1></h1> more text', 9)).toEqual(undefined)
 })
+
+test('inside style', () => {
+  expect(
+    htmlTabCompletion(
+      '',
+      `<style>
+h1 {
+  d
+}`,
+      16
+    )
+  ).toEqual({
+    inserted: `display: `,
+    deleted: 1,
+    offset: 8,
+    type: /* Snippet */ 2,
+  })
+})
