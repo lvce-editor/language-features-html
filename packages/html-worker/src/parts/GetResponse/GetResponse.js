@@ -1,25 +1,12 @@
-import * as Completion from '../Completion/Completions.js'
-import * as HtmlWorkerCommandType from '../HtmlWorkerCommandType/HtmlWorkerCommandType.js'
-import * as TabCompletion from '../TabCompletion/TabCompletion.js'
+import * as Command from '../Command/Command.js'
+import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.js'
+import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.js'
 
-const noop = (...args) => {
-  return undefined
-}
-
-const getFn = (method) => {
-  switch (method) {
-    case HtmlWorkerCommandType.GetTabCompletion:
-      return TabCompletion.htmlTabCompletion
-    case HtmlWorkerCommandType.GetCompletion:
-      return Completion.htmlCompletion
-    default:
-      return noop
+export const getResponse = async (message) => {
+  try {
+    const result = await Command.execute(message.method, ...message.params)
+    return GetSuccessResponse.getSuccessResponse(message, result)
+  } catch (error) {
+    return GetErrorResponse.getErrorResponse(message, error)
   }
-}
-
-export const getResponse = async (method, params) => {
-  const fn = getFn(method)
-  // @ts-ignore
-  const result = await fn(...params)
-  return result
 }

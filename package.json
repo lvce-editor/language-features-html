@@ -2,7 +2,6 @@
   "name": "@lvce-editor/language-features-html",
   "version": "0.0.0-dev",
   "scripts": {
-    "postinstall": "lerna bootstrap --ci",
     "test": "lerna run test",
     "dev": "node ./node_modules/@lvce-editor/server/bin/server.js --only-extension=packages/extension --test-path=packages/e2e",
     "e2e": "cd packages/e2e && npm run e2e",
