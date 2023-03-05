@@ -1,5 +1,5 @@
 import * as JavaScriptCompletion from '../JavaScriptCompletion/JavaScriptCompletion.js'
 
-export const getTextContentCompletionScript = (uri, offset) => {
-  return JavaScriptCompletion.getCompletion(uri, offset)
+export const getTextContentCompletionScript = (uri, text, offset) => {
+  return JavaScriptCompletion.getCompletion(uri, text, offset)
 }

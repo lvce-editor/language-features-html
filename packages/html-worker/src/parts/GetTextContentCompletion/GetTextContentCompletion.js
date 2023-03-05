@@ -12,6 +12,7 @@ export const getTextContentCompletion = (uri, text, tokens, index, offset) => {
     case TagName.Script:
       return GetTextContentCompletionScript.getTextContentCompletionScript(
         uri,
+        embeddedContent,
         relativeOffset
       )
     case TagName.Style:

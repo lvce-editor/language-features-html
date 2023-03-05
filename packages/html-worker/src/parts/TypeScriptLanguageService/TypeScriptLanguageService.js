@@ -1,11 +1,16 @@
 import * as TypeScript from '../TypeScript/TypeScript.js'
 import * as TypeScriptScriptTarget from '../TypeScriptScriptTarget/TypeScriptScriptTarget.js'
 import * as TypeScriptModuleResolutionKind from '../TypeScriptModuleResolutionKind/TypeScriptModuleResolutionKind.js'
+import * as TypeScriptPath from '../TypeScriptPath/TypeScriptPath.js'
+import * as GetTextSync from '../GetTextSync/GetTextSync.js'
+import * as TypeScriptScriptKind from '../TypeScriptScriptKind/TypeScriptScriptKind.js'
+import * as TypeScriptScriptSnapshot from '../TypeScriptScriptSnapShot/TypeScriptScriptSnapshot.js'
 
 const getLanguageServiceHost = () => {
   return {
     uri: '',
-    content: '',
+    content: 'let x = 1',
+    scriptKind: TypeScriptScriptKind.Js,
     compilerOptions: {
       allowNonTsExtensions: true,
       allowJs: true,
@@ -20,18 +25,25 @@ const getLanguageServiceHost = () => {
     getScriptFileNames() {
       return [this.uri]
     },
-    getScriptKind() {
-      throw new Error('not implemented')
+    getScriptKind(fileName) {
+      if (fileName === this.uri) {
+        return this.scriptKind
+      }
+      if (fileName.endsWith('.ts')) {
+        return TypeScriptScriptKind.Ts
+      }
+      return TypeScriptScriptKind.Js
     },
     getScriptVersion() {
-      throw new Error('not implemented')
+      return '1'
     },
     getScriptSnapshot(fileName) {
       if (fileName === this.uri) {
-        return this.content
+        return TypeScriptScriptSnapshot.fromString(this.content)
       }
-      console.log({ fileName })
-      throw new Error('not implemented')
+      const libFilePath = TypeScriptPath.getLibFilePath(fileName)
+      const text = GetTextSync.getTextSync(libFilePath)
+      return TypeScriptScriptSnapshot.fromString(text)
     },
     getCurrentDirectory() {
       return ''
@@ -55,9 +67,8 @@ const getLanguageServiceHost = () => {
   }
 }
 
-export const getLanguageService = (uri) => {
+export const getLanguageService = () => {
   const host = getLanguageServiceHost()
-  host.uri = uri
   const languageService = TypeScript.createLanguageService(host)
-  return languageService
+  return { languageService, host }
 }
