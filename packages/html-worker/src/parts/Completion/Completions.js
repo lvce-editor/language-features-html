@@ -3,7 +3,6 @@ import * as GetClosingTagCompletions from '../GetClosingTagCompletions/GetClosin
 import * as GetHtmlTagCompletions from '../GetHtmlTagCompletions/GetHtmlTagCompletions.js'
 import * as GetTextContentCompletion from '../GetTextContentCompletion/GetTextContentCompletion.js'
 import {
-  getTokenAtOffset,
   getTokenIndexAtOffset,
   tokenizeHtml,
 } from '../TokenizeHtml/TokenizeHtml.js'
@@ -38,7 +37,12 @@ export const htmlCompletion = (uri, text, offset) => {
       case TokenType.ClosingTagSlash:
         return GetClosingTagCompletions.getClosingTagCompletions()
       case TokenType.Content:
-        return GetTextContentCompletion.getTextContentCompletion(tokens, index)
+        return GetTextContentCompletion.getTextContentCompletion(
+          text,
+          tokens,
+          index,
+          offset
+        )
       default:
     }
   } catch (error) {
