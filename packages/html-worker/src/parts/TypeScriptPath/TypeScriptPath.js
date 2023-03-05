@@ -1,5 +1,8 @@
 export const getTypeScriptPath = () => {
-  return '../../../../../node_modules/typescript/lib/typescript.js'
+  return new URL(
+    '../../../../../node_modules/typescript/lib/typescript.js',
+    import.meta.url
+  ).toString()
 }
 
 export const getLibFilePath = (libFileName) => {
