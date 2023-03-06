@@ -7,6 +7,7 @@ import {
   tokenizeHtml,
 } from '../TokenizeHtml/TokenizeHtml.js'
 import * as TokenType from '../TokenType/TokenType.js'
+import * as Assert from '../Assert/Assert.js'
 
 const NO_COMPLETIONS = []
 
@@ -21,6 +22,9 @@ export const htmlCompletion = (uri, text, offset) => {
   // TODO try catch is slow
   // is it necessary here or in extension host service?
   try {
+    Assert.string(uri)
+    Assert.string(text)
+    Assert.number(offset)
     const tokens = tokenizeHtml(text)
     const index = getTokenIndexAtOffset(tokens, offset)
     const tokenAtOffset = tokens[index]
