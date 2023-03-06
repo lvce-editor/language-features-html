@@ -1,11 +1,13 @@
 import { tokenizeHtml } from '../src/parts/TokenizeHtml/TokenizeHtml.js'
 import * as TokenType from '../src/parts/TokenType/TokenType.js'
 
+const getType = (token) => {
+  return token.type
+}
+
 const expectTokenizeHtml = (html) => ({
   toEqual(expectedTokens) {
-    expect(tokenizeHtml(html).map((token) => token.type)).toEqual(
-      expectedTokens
-    )
+    expect(tokenizeHtml(html).map(getType)).toEqual(expectedTokens)
   },
 })
 
@@ -202,4 +204,12 @@ test.skip('bug 28', () => {
 
 test.skip('invalid html 4', () => {
   expectTokenizeHtml('<<div>></<div>>').toEqual([])
+})
+
+test('unexpected opening angle bracket', () => {
+  expectTokenizeHtml(`<button<`).toEqual([
+    TokenType.OpeningAngleBracket,
+    TokenType.TagNameStart,
+    TokenType.Text,
+  ])
 })

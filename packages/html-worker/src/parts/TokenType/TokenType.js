@@ -18,3 +18,4 @@ export const Doctype = 16
 export const StartCommentDashes = 17
 export const Comment = 18
 export const EndCommentTag = 19
+export const Text = 20

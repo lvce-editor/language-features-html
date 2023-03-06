@@ -3,7 +3,7 @@ import * as TokenType from '../TokenType/TokenType.js'
 const State = {
   TopLevelContent: 1,
   AfterOpeningAngleBracket: 2,
-  AfterOpeningTagName: 3,
+  InsideOpeningTag: 3,
   AfterClosingTagSlash: 4,
   AfterClosingTagName: 5,
   InsideOpeningTagAfterWhitespace: 6,
@@ -32,6 +32,7 @@ const RE_DASH_DASH = /^--/
 const RE_DOCTYPE = /^doctype/i
 const RE_BLOCK_COMMENT_CONTENT = /^[a-zA-Z\s]+/
 const RE_COMMENT_END = /^-->/
+const RE_TAG_TEXT = /^[^\s>]+/
 
 /**
  * @param {string} text
@@ -61,7 +62,7 @@ export const tokenizeHtml = (text) => {
       case State.AfterOpeningAngleBracket:
         if ((next = text.slice(index).match(RE_TAGNAME))) {
           token = TokenType.TagNameStart
-          state = State.AfterOpeningTagName
+          state = State.InsideOpeningTag
         } else if ((next = text.slice(index).match(RE_SLASH))) {
           token = TokenType.ClosingTagSlash
           state = State.AfterClosingTagSlash
@@ -85,7 +86,7 @@ export const tokenizeHtml = (text) => {
           state = State.InsideComment
         } else if ((next = text.slice(index).match(RE_DOCTYPE))) {
           token = TokenType.Doctype
-          state = State.AfterOpeningTagName
+          state = State.InsideOpeningTag
         } else {
           text.slice(index) // ?
           throw new Error('no')
@@ -103,13 +104,16 @@ export const tokenizeHtml = (text) => {
           throw new Error('no')
         }
         break
-      case State.AfterOpeningTagName:
+      case State.InsideOpeningTag:
         if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
+        } else if ((next = text.slice(index).match(RE_TAG_TEXT))) {
+          token = TokenType.Text
+          state = State.TopLevelContent
         } else {
           throw new Error('no')
         }
