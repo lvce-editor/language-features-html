@@ -7,3 +7,17 @@ test('getClosingTag', () => {
     inserted: '/div>',
   })
 })
+
+test('getClosingTag - no closing tag', () => {
+  const text = ``
+  const offset = 0
+  expect(ClosingTag.getClosingTag(text, offset)).toBeUndefined()
+})
+
+test('getClosingTag - nested tag', () => {
+  const text = `<div><span></span><`
+  const offset = 19
+  expect(ClosingTag.getClosingTag(text, offset)).toEqual({
+    inserted: '/div>',
+  })
+})
