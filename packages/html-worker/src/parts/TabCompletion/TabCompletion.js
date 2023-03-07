@@ -2,10 +2,8 @@ import * as GetTabCompletionContent from '../GetTabCompletionContent/GetTabCompl
 import * as GetTabCompletionDoctype from '../GetTabCompletionDoctype/GetTabCompletionDoctype.js'
 import * as GetTabCompletionLoremIpsum from '../GetTabCompletionLoremIpsum/GetTabCompletionLoremIpsum.js'
 import * as GetWordAtOffset from '../GetWordAtOffset/GetWordAtOffset.js'
-import {
-  getTokenIndexAtOffset,
-  tokenizeHtml,
-} from '../TokenizeHtml/TokenizeHtml.js'
+import { tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAtOffset.js'
 import * as TokenType from '../TokenType/TokenType.js'
 
 // TODO tab completion should not trigger auto completion from document change again
@@ -25,7 +23,7 @@ export const htmlTabCompletion = (uri, text, offset) => {
   // console.time('tokenize')
   const tokens = tokenizeHtml(text)
   // console.timeEnd('tokenize')
-  const index = getTokenIndexAtOffset(tokens, offset)
+  const index = GetTokenIndexAtOffset.getTokenIndexAtOffset(tokens, offset)
   const tokenAtOffset = tokens[index]
   switch (tokenAtOffset.type) {
     case TokenType.Content:
