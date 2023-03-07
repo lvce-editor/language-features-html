@@ -44,15 +44,16 @@ export const tokenizeHtml = (text) => {
   const tokens = []
   let token = TokenType.None
   while (index < text.length) {
+    const part = text.slice(index)
     switch (state) {
       case State.TopLevelContent:
-        if ((next = text.slice(index).match(RE_ANGLE_BRACKET_OPEN))) {
+        if ((next = part.match(RE_ANGLE_BRACKET_OPEN))) {
           token = TokenType.OpeningAngleBracket
           state = State.AfterOpeningAngleBracket
-        } else if ((next = text.slice(index).match(RE_CONTENT))) {
+        } else if ((next = part.match(RE_CONTENT))) {
           token = TokenType.Content
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.Content
           state = State.TopLevelContent
         } else {
@@ -60,19 +61,19 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterOpeningAngleBracket:
-        if ((next = text.slice(index).match(RE_TAGNAME))) {
+        if ((next = part.match(RE_TAGNAME))) {
           token = TokenType.TagNameStart
           state = State.InsideOpeningTag
-        } else if ((next = text.slice(index).match(RE_SLASH))) {
+        } else if ((next = part.match(RE_SLASH))) {
           token = TokenType.ClosingTagSlash
           state = State.AfterClosingTagSlash
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceAfterOpeningTagOpenAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_EXCLAMATION_MARK))) {
+        } else if ((next = part.match(RE_EXCLAMATION_MARK))) {
           token = TokenType.ExclamationMark
           state = State.AfterExclamationMark
         } else {
@@ -81,10 +82,10 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterExclamationMark:
-        if ((next = text.slice(index).match(RE_DASH_DASH))) {
+        if ((next = part.match(RE_DASH_DASH))) {
           token = TokenType.StartCommentDashes
           state = State.InsideComment
-        } else if ((next = text.slice(index).match(RE_DOCTYPE))) {
+        } else if ((next = part.match(RE_DOCTYPE))) {
           token = TokenType.Doctype
           state = State.InsideOpeningTag
         } else {
@@ -93,10 +94,10 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.InsideComment:
-        if ((next = text.slice(index).match(RE_BLOCK_COMMENT_CONTENT))) {
+        if ((next = part.match(RE_BLOCK_COMMENT_CONTENT))) {
           token = TokenType.Comment
           state = State.InsideComment
-        } else if ((next = text.slice(index).match(RE_COMMENT_END))) {
+        } else if ((next = part.match(RE_COMMENT_END))) {
           token = TokenType.EndCommentTag
           state = State.TopLevelContent
         } else {
@@ -105,13 +106,13 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.InsideOpeningTag:
-        if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
-        } else if ((next = text.slice(index).match(RE_TAG_TEXT))) {
+        } else if ((next = part.match(RE_TAG_TEXT))) {
           token = TokenType.Text
           state = State.TopLevelContent
         } else {
@@ -119,13 +120,13 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.InsideOpeningTagAfterWhitespace:
-        if ((next = text.slice(index).match(RE_ATTRIBUTE_NAME))) {
+        if ((next = part.match(RE_ATTRIBUTE_NAME))) {
           token = TokenType.AttributeName
           state = State.AfterAttributeName
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_TEXT))) {
+        } else if ((next = part.match(RE_TEXT))) {
           token = TokenType.AttributeName
           state = State.AfterAttributeName
         } else {
@@ -135,16 +136,16 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterAttributeName:
-        if ((next = text.slice(index).match(RE_EQUAL_SIGN))) {
+        if ((next = part.match(RE_EQUAL_SIGN))) {
           token = TokenType.AttributeEqualSign
           state = State.AfterAttributeEqualSign
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_OPEN))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_OPEN))) {
           token = TokenType.OpeningAngleBracket
           state = State.AfterOpeningAngleBracket
         } else {
@@ -153,10 +154,10 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterAttributeEqualSign:
-        if ((next = text.slice(index).match(RE_DOUBLE_QUOTE))) {
+        if ((next = part.match(RE_DOUBLE_QUOTE))) {
           token = TokenType.AttributeQuoteStart
           state = State.InsideAttributeAfterDoubleQuote
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else {
@@ -171,7 +172,7 @@ export const tokenizeHtml = (text) => {
         ) {
           token = TokenType.AttributeValue
           state = State.AfterAttributeValueInsideDoubleQuote
-        } else if ((next = text.slice(index).match(RE_DOUBLE_QUOTE))) {
+        } else if ((next = part.match(RE_DOUBLE_QUOTE))) {
           token = TokenType.AttributeQuoteEnd
           state = State.AfterAttributeValueClosingQuote
         } else {
@@ -179,7 +180,7 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterAttributeValueInsideDoubleQuote:
-        if ((next = text.slice(index).match(RE_DOUBLE_QUOTE))) {
+        if ((next = part.match(RE_DOUBLE_QUOTE))) {
           token = TokenType.AttributeQuoteEnd
           state = State.AfterAttributeValueClosingQuote
         } else {
@@ -187,10 +188,10 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterAttributeValueClosingQuote:
-        if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
         } else {
@@ -198,13 +199,13 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterClosingTagSlash:
-        if ((next = text.slice(index).match(RE_TAGNAME))) {
+        if ((next = part.match(RE_TAGNAME))) {
           token = TokenType.TagNameEnd
           state = State.AfterClosingTagName
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceAfterClosingTagSlash
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else {
@@ -212,10 +213,10 @@ export const tokenizeHtml = (text) => {
         }
         break
       case State.AfterClosingTagName:
-        if ((next = text.slice(index).match(RE_ANGLE_BRACKET_CLOSE))) {
+        if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
-        } else if ((next = text.slice(index).match(RE_WHITESPACE))) {
+        } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.Content
           state = State.TopLevelContent
         } else {
