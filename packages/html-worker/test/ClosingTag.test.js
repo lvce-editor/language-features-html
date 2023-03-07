@@ -21,3 +21,11 @@ test('getClosingTag - nested tag', () => {
     inserted: '/div>',
   })
 })
+
+test('getClosingTag - nested tag with image in between', () => {
+  const text = `<div><img><`
+  const offset = 11
+  expect(ClosingTag.getClosingTag(text, offset)).toEqual({
+    inserted: '/div>',
+  })
+})
