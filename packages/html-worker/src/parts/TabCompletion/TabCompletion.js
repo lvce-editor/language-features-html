@@ -1,5 +1,6 @@
 import * as GetTabCompletionContent from '../GetTabCompletionContent/GetTabCompletionContent.js'
 import * as GetTabCompletionDoctype from '../GetTabCompletionDoctype/GetTabCompletionDoctype.js'
+import * as GetTabCompletionLoremIpsum from '../GetTabCompletionLoremIpsum/GetTabCompletionLoremIpsum.js'
 import * as GetWordAtOffset from '../GetWordAtOffset/GetWordAtOffset.js'
 import {
   getTokenIndexAtOffset,
@@ -17,6 +18,9 @@ export const htmlTabCompletion = (uri, text, offset) => {
   }
   if (wordAtOffset === '!') {
     return GetTabCompletionDoctype.getTabCompletionDoctype()
+  }
+  if (wordAtOffset.startsWith('lorem')) {
+    return GetTabCompletionLoremIpsum.getTabCompletion(wordAtOffset)
   }
   // console.time('tokenize')
   const tokens = tokenizeHtml(text)
