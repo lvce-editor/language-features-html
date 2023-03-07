@@ -17,7 +17,7 @@ export const htmlTabCompletion = (uri, text, offset) => {
     return undefined
   }
   if (wordAtOffset === '!') {
-    return GetTabCompletionDoctype.getTabCompletionDoctype()
+    return GetTabCompletionDoctype.getTabCompletion()
   }
   if (wordAtOffset.startsWith('lorem')) {
     return GetTabCompletionLoremIpsum.getTabCompletion(wordAtOffset)
