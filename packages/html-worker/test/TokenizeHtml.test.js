@@ -224,3 +224,23 @@ test('webpack syntax', () => {
     TokenType.ClosingAngleBracket,
   ])
 })
+
+test('attribute without value', () => {
+  expectTokenizeHtml(`<a href="/" download></a>`).toEqual([
+    TokenType.OpeningAngleBracket,
+    TokenType.TagNameStart,
+    TokenType.WhitespaceInsideOpeningTag,
+    TokenType.AttributeName,
+    TokenType.AttributeEqualSign,
+    TokenType.AttributeQuoteStart,
+    TokenType.AttributeValue,
+    TokenType.AttributeQuoteEnd,
+    TokenType.WhitespaceInsideOpeningTag,
+    TokenType.AttributeName,
+    TokenType.ClosingAngleBracket,
+    TokenType.OpeningAngleBracket,
+    TokenType.ClosingTagSlash,
+    TokenType.TagNameEnd,
+    TokenType.ClosingAngleBracket,
+  ])
+})
