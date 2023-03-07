@@ -2,10 +2,8 @@ import * as GetAttributeNameCompletions from '../GetAttributeNameCompletions/Get
 import * as GetClosingTagCompletions from '../GetClosingTagCompletions/GetClosingTagCompletions.js'
 import * as GetHtmlTagCompletions from '../GetHtmlTagCompletions/GetHtmlTagCompletions.js'
 import * as GetTextContentCompletion from '../GetTextContentCompletion/GetTextContentCompletion.js'
-import {
-  getTokenIndexAtOffset,
-  tokenizeHtml,
-} from '../TokenizeHtml/TokenizeHtml.js'
+import { tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAtOffset.js'
 import * as TokenType from '../TokenType/TokenType.js'
 import * as Assert from '../Assert/Assert.js'
 
@@ -26,7 +24,7 @@ export const htmlCompletion = (uri, text, offset) => {
     Assert.string(text)
     Assert.number(offset)
     const tokens = tokenizeHtml(text)
-    const index = getTokenIndexAtOffset(tokens, offset)
+    const index = GetTokenIndexAtOffset.getTokenIndexAtOffset(tokens, offset)
     const tokenAtOffset = tokens[index]
     switch (tokenAtOffset.type) {
       case TokenType.OpeningAngleBracket:
