@@ -162,9 +162,7 @@ test('invalid html', () => {
 
 test('comment', () => {
   expectTokenizeHtml('<!-- -->').toEqual([
-    TokenType.OpeningAngleBracket,
-    TokenType.ExclamationMark,
-    TokenType.StartCommentDashes,
+    TokenType.CommentStart,
     TokenType.Comment,
     TokenType.EndCommentTag,
   ])
@@ -172,9 +170,7 @@ test('comment', () => {
 
 test('unfinished comment', () => {
   expectTokenizeHtml('<!-- ').toEqual([
-    TokenType.OpeningAngleBracket,
-    TokenType.ExclamationMark,
-    TokenType.StartCommentDashes,
+    TokenType.CommentStart,
     TokenType.Comment,
   ])
 })
@@ -182,9 +178,7 @@ test('unfinished comment', () => {
 test('multiline comment', () => {
   expectTokenizeHtml(`<!--
    abc -->`).toEqual([
-    TokenType.OpeningAngleBracket,
-    TokenType.ExclamationMark,
-    TokenType.StartCommentDashes,
+    TokenType.CommentStart,
     TokenType.Comment,
     TokenType.EndCommentTag,
   ])
@@ -211,5 +205,22 @@ test('unexpected opening angle bracket', () => {
     TokenType.OpeningAngleBracket,
     TokenType.TagNameStart,
     TokenType.Text,
+  ])
+})
+
+test('webpack syntax', () => {
+  expectTokenizeHtml(
+    `<title><%= htmlWebpackPlugin.options.title %></title>`
+  ).toEqual([
+    TokenType.OpeningAngleBracket,
+    TokenType.TagNameStart,
+    TokenType.ClosingAngleBracket,
+    TokenType.Text,
+    TokenType.Content,
+    TokenType.Content,
+    TokenType.OpeningAngleBracket,
+    TokenType.ClosingTagSlash,
+    TokenType.TagNameEnd,
+    TokenType.ClosingAngleBracket,
   ])
 })

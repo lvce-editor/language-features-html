@@ -17,6 +17,7 @@ const State = {
 }
 
 const RE_ANGLE_BRACKET_OPEN = /^</
+const RE_ANGLE_BRACKET_OPEN_TAG = /^<(?![\s!\%])/
 const RE_ANGLE_BRACKET_CLOSE = /^>/
 const RE_SLASH = /^\//
 const RE_TAGNAME = /^[a-zA-Z\d$]+/
@@ -33,6 +34,11 @@ const RE_DOCTYPE = /^doctype/i
 const RE_BLOCK_COMMENT_CONTENT = /^[a-zA-Z\s]+/
 const RE_COMMENT_END = /^-->/
 const RE_TAG_TEXT = /^[^\s>]+/
+const RE_ANY_TEXT = /^[^\n]+/
+const RE_BLOCK_COMMENT_START = /^<!--/
+const RE_BLOCK_COMMENT_CONTENT_1 = /^.+?(?=-->)/s
+const RE_BLOCK_COMMENT_CONTENT_2 = /^.+$/s
+const RE_BLOCK_COMMENT_END = /^-->/
 
 /**
  * @param {string} text
@@ -47,14 +53,20 @@ export const tokenizeHtml = (text) => {
     const part = text.slice(index)
     switch (state) {
       case State.TopLevelContent:
-        if ((next = part.match(RE_ANGLE_BRACKET_OPEN))) {
+        if ((next = part.match(RE_ANGLE_BRACKET_OPEN_TAG))) {
           token = TokenType.OpeningAngleBracket
           state = State.AfterOpeningAngleBracket
         } else if ((next = part.match(RE_CONTENT))) {
           token = TokenType.Content
           state = State.TopLevelContent
+        } else if ((next = part.match(RE_BLOCK_COMMENT_START))) {
+          token = TokenType.CommentStart
+          state = State.InsideComment
         } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.Content
+          state = State.TopLevelContent
+        } else if ((next = part.match(RE_ANGLE_BRACKET_OPEN))) {
+          token = TokenType.Text
           state = State.TopLevelContent
         } else {
           throw new Error('no')
@@ -76,6 +88,9 @@ export const tokenizeHtml = (text) => {
         } else if ((next = part.match(RE_EXCLAMATION_MARK))) {
           token = TokenType.ExclamationMark
           state = State.AfterExclamationMark
+        } else if ((next = part.match(RE_ANY_TEXT))) {
+          token = TokenType.Text
+          state = State.TopLevelContent
         } else {
           text.slice(index) // ?
           throw new Error('no')
