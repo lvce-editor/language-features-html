@@ -14,6 +14,6 @@ const SNIPPET_DOCTYPE = {
   type: /* Snippet */ 2,
 }
 
-export const getTabCompletionDoctype = () => {
+export const getTabCompletion = () => {
   return SNIPPET_DOCTYPE
 }
