@@ -1,4 +1,5 @@
 import * as TokenType from '../TokenType/TokenType.js'
+import { UnexpectedTokenError } from '../UnexpectedTokenError/UnexpectedTokenError.js'
 
 const State = {
   TopLevelContent: 1,
@@ -69,7 +70,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.Text
           state = State.TopLevelContent
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterOpeningAngleBracket:
@@ -93,7 +94,7 @@ export const tokenizeHtml = (text) => {
           state = State.TopLevelContent
         } else {
           text.slice(index) // ?
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterExclamationMark:
@@ -105,7 +106,7 @@ export const tokenizeHtml = (text) => {
           state = State.InsideOpeningTag
         } else {
           text.slice(index) // ?
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.InsideComment:
@@ -117,7 +118,7 @@ export const tokenizeHtml = (text) => {
           state = State.TopLevelContent
         } else {
           text.slice(index) // ?
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.InsideOpeningTag:
@@ -131,7 +132,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.Text
           state = State.TopLevelContent
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.InsideOpeningTagAfterWhitespace:
@@ -147,7 +148,7 @@ export const tokenizeHtml = (text) => {
         } else {
           text.slice(index).match(RE_TEXT) // ?
           text.slice(index) // ?
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterAttributeName:
@@ -165,7 +166,7 @@ export const tokenizeHtml = (text) => {
           state = State.AfterOpeningAngleBracket
         } else {
           text.slice(index) // ?
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterAttributeEqualSign:
@@ -176,7 +177,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.InsideAttributeAfterDoubleQuote:
@@ -191,7 +192,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.AttributeQuoteEnd
           state = State.AfterAttributeValueClosingQuote
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterAttributeValueInsideDoubleQuote:
@@ -199,7 +200,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.AttributeQuoteEnd
           state = State.AfterAttributeValueClosingQuote
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterAttributeValueClosingQuote:
@@ -210,7 +211,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterClosingTagSlash:
@@ -224,7 +225,7 @@ export const tokenizeHtml = (text) => {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       case State.AfterClosingTagName:
@@ -235,11 +236,11 @@ export const tokenizeHtml = (text) => {
           token = TokenType.Content
           state = State.TopLevelContent
         } else {
-          throw new Error('no')
+          throw new UnexpectedTokenError()
         }
         break
       default:
-        throw new Error('no')
+        throw new UnexpectedTokenError()
     }
     const tokenText = next[0]
     tokens.push({
