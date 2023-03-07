@@ -1,22 +1,7 @@
 import * as TokenizeHtml from '../TokenizeHtml/TokenizeHtml.js'
 import * as TokenType from '../TokenType/TokenType.js'
-
-const getPreviousOpenTag = (tokens, index) => {
-  const stack = []
-  for (let i = index; i >= 0; i--) {
-    const token = tokens[i]
-    if (token.type === TokenType.TagNameEnd) {
-      stack.push(token.text)
-    }
-    if (token.type === TokenType.TagNameStart) {
-      if (stack.length === 0) {
-        return token.text
-      }
-      stack.pop()
-    }
-  }
-  return ''
-}
+import * as IsSelfClosingTag from '../IsSelfClosingTag/IsSelfClosingTag.js'
+import * as GetPreviousOpenTag from '../GetPreviousOpenTag/GetPreviousOpenTag.js'
 
 export const getClosingTag = (text, offset) => {
   const tokens = TokenizeHtml.tokenizeHtml(text)
@@ -29,7 +14,10 @@ export const getClosingTag = (text, offset) => {
     case TokenType.OpeningAngleBracket:
     case TokenType.ClosingTagSlash:
     case TokenType.WhitespaceAfterOpeningTagOpenAngleBracket:
-      const previousOpenTag = getPreviousOpenTag(tokens, index)
+      const previousOpenTag = GetPreviousOpenTag.getPreviousOpenTag(
+        tokens,
+        index
+      )
       if (!previousOpenTag) {
         return undefined
       }

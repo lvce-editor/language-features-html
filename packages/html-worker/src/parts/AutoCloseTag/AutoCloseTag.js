@@ -7,10 +7,8 @@ export const htmlAutoClose = (text, edits) => {
   }
   // TODO
   const edit = edits[0]
-  console.log({ edit })
   const offset = edit.endOffset
   const previousOpenTagName = getPreviousOpenTag(text, offset)
-  console.log({ previousOpenTagName })
   if (!previousOpenTagName) {
     return undefined
   }
@@ -19,11 +17,5 @@ export const htmlAutoClose = (text, edits) => {
     inserted: `${previousOpenTagName.tagName}>`,
     deleted: 0,
   }
-
-  console.log({
-    text,
-    offset,
-    outGoingEdit,
-  })
   return outGoingEdit
 }
