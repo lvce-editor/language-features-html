@@ -244,3 +244,12 @@ test('attribute without value', () => {
     TokenType.ClosingAngleBracket,
   ])
 })
+
+test('self closing tag', () => {
+  expectTokenizeHtml(`<input />`).toEqual([
+    TokenType.OpeningAngleBracket,
+    TokenType.TagNameStart,
+    TokenType.WhitespaceInsideOpeningTag,
+    TokenType.ClosingAngleBracket,
+  ])
+})

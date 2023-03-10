@@ -40,6 +40,7 @@ const RE_BLOCK_COMMENT_START = /^<!--/
 const RE_BLOCK_COMMENT_CONTENT_1 = /^.+?(?=-->)/s
 const RE_BLOCK_COMMENT_CONTENT_2 = /^.+$/s
 const RE_BLOCK_COMMENT_END = /^-->/
+const RE_SELF_CLOSING = /^\/>/
 
 /**
  * @param {string} text
@@ -140,6 +141,9 @@ export const tokenizeHtml = (text) => {
           token = TokenType.AttributeName
           state = State.AfterAttributeName
         } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
+          token = TokenType.ClosingAngleBracket
+          state = State.TopLevelContent
+        } else if ((next = part.match(RE_SELF_CLOSING))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
         } else if ((next = part.match(RE_TEXT))) {
