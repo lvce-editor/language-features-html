@@ -214,6 +214,9 @@ export const tokenizeHtml = (text) => {
         } else if ((next = part.match(RE_WHITESPACE))) {
           token = TokenType.WhitespaceInsideOpeningTag
           state = State.InsideOpeningTagAfterWhitespace
+        } else if ((next = part.match(RE_SELF_CLOSING))) {
+          token = TokenType.ClosingAngleBracket
+          state = State.TopLevelContent
         } else {
           throw new UnexpectedTokenError()
         }
