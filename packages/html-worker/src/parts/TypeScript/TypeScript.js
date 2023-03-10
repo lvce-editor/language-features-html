@@ -1,7 +1,14 @@
 import * as TypeScriptPath from '../TypeScriptPath/TypeScriptPath.js'
 
 const typescriptPath = TypeScriptPath.getTypeScriptPath()
-const { ts } = await import(typescriptPath)
+
+const typeScriptModule = await import(typescriptPath)
+
+if (!typeScriptModule.ts) {
+  throw new Error(`from typescript module is missing ts export`)
+}
+
+const { ts } = typeScriptModule
 
 export const ScriptKind = ts.ScriptKind
 
