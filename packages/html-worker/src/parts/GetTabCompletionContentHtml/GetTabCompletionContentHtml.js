@@ -13,7 +13,7 @@ const snippets = {
   script: '<script type="module" src="$0"></script>',
 }
 
-export const getTabCompletion = (wordAtOffset) => {
+export const getTabCompletion = (content, offset, wordAtOffset) => {
   if (wordAtOffset.startsWith('#')) {
     return GetIdTabCompletion.getIdTabCompletion(wordAtOffset)
   }

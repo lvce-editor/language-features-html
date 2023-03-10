@@ -32,7 +32,6 @@ const goBack = (count) => {
 }
 
 export const getPreviousOpenTag = (initialText, initialOffset) => {
-  console.log({ initialText, initialOffset })
   offset = initialOffset
   state = State.Default
   text = initialText

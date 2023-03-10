@@ -1,39 +1,39 @@
 import { htmlTabCompletion } from '../src/parts/TabCompletion/TabCompletion.js'
 
-test('default', () => {
-  expect(htmlTabCompletion('', 'h1', 2)).toEqual({
+test('default', async () => {
+  expect(await htmlTabCompletion('', 'h1', 2)).toEqual({
     inserted: '<h1>$0</h1>',
     deleted: 2,
     type: /* Snippet */ 2,
   })
 })
 
-test.skip('inside tag', () => {
-  expect(htmlTabCompletion('', '<button>button</button>', 14)).toEqual({
+test.skip('inside tag', async () => {
+  expect(await htmlTabCompletion('', '<button>button</button>', 14)).toEqual({
     inserted: '<button$0></button>',
     deleted: 6,
     type: /* Snippet */ 2,
   })
 })
 
-test.skip('after opening angle bracket', () => {
-  expect(htmlTabCompletion('', '<', 1)).toEqual(undefined)
+test.skip('after opening angle bracket', async () => {
+  expect(await htmlTabCompletion('', '<', 1)).toEqual(undefined)
 })
 
-test('after opening tag name', () => {
-  expect(htmlTabCompletion('', '<h1', 3)).toEqual(undefined)
+test('after opening tag name', async () => {
+  expect(await htmlTabCompletion('', '<h1', 3)).toEqual(undefined)
 })
 
-test('after closing tag name', () => {
-  expect(htmlTabCompletion('', '<h1></h1', 8)).toEqual(undefined)
+test('after closing tag name', async () => {
+  expect(await htmlTabCompletion('', '<h1></h1', 8)).toEqual(undefined)
 })
 
-test('after attribute name', () => {
-  expect(htmlTabCompletion('', '<h1 class', 9)).toEqual(undefined)
+test('after attribute name', async () => {
+  expect(await htmlTabCompletion('', '<h1 class', 9)).toEqual(undefined)
 })
 
-test('snippet - doctype', () => {
-  expect(htmlTabCompletion('', '!', 1)).toEqual({
+test('snippet - doctype', async () => {
+  expect(await htmlTabCompletion('', '!', 1)).toEqual({
     inserted: `<!DOCTYPE html>
 <html lang=\"en\">
   <head>
@@ -50,21 +50,23 @@ test('snippet - doctype', () => {
   })
 })
 
-test('snippet - form', () => {
-  expect(htmlTabCompletion('', 'form', 4)).toEqual({
+test('snippet - form', async () => {
+  expect(await htmlTabCompletion('', 'form', 4)).toEqual({
     inserted: `<form action="">\n\n$0\n</form>`,
     deleted: 4,
     type: /* Snippet */ 2,
   })
 })
 
-test('at end of tag', () => {
-  expect(htmlTabCompletion('', '<h1></h1> more text', 9)).toEqual(undefined)
+test('at end of tag', async () => {
+  expect(await htmlTabCompletion('', '<h1></h1> more text', 9)).toEqual(
+    undefined
+  )
 })
 
-test('inside style', () => {
+test('inside style', async () => {
   expect(
-    htmlTabCompletion(
+    await htmlTabCompletion(
       '',
       `<style>
 h1 {
@@ -80,9 +82,9 @@ h1 {
   })
 })
 
-test('style tag', () => {
+test('style tag', async () => {
   expect(
-    htmlTabCompletion(
+    await htmlTabCompletion(
       ``,
       `<h1></h1>
 style`,
@@ -95,9 +97,9 @@ style`,
   })
 })
 
-test('after style tag', () => {
+test('after style tag', async () => {
   expect(
-    htmlTabCompletion(
+    await htmlTabCompletion(
       ``,
       `<style></style>
 h1`,
@@ -110,8 +112,8 @@ h1`,
   })
 })
 
-test('div with id', () => {
-  expect(htmlTabCompletion('', '#results', 8)).toEqual({
+test('div with id', async () => {
+  expect(await htmlTabCompletion('', '#results', 8)).toEqual({
     deleted: 8,
     inserted: '<div id="results"></div>',
     type: 2,
