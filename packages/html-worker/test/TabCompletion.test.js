@@ -109,3 +109,11 @@ h1`,
     type: /* Snippet */ 2,
   })
 })
+
+test('div with id', () => {
+  expect(htmlTabCompletion('', '#results', 8)).toEqual({
+    deleted: 8,
+    inserted: '<div id="results"></div>',
+    type: 2,
+  })
+})

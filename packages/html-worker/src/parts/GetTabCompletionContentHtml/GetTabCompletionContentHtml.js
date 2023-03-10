@@ -1,3 +1,5 @@
+import * as GetIdTabCompletion from '../GetIdTabCompletion/GetIdTabCompletion.js'
+
 const snippets = {
   input: '<input type="$0">$1',
   hr: '<hr>$0',
@@ -12,6 +14,9 @@ const snippets = {
 }
 
 export const getTabCompletion = (wordAtOffset) => {
+  if (wordAtOffset.startsWith('#')) {
+    return GetIdTabCompletion.getIdTabCompletion(wordAtOffset)
+  }
   if (snippets.hasOwnProperty(wordAtOffset)) {
     return {
       inserted: snippets[wordAtOffset],
