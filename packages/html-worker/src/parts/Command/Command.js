@@ -1,27 +1,7 @@
-import * as ClosingTag from '../ClosingTag/ClosingTag.js'
-import * as Completion from '../Completion/Completions.js'
-import * as HtmlWorkerCommandType from '../HtmlWorkerCommandType/HtmlWorkerCommandType.js'
-import * as TabCompletion from '../TabCompletion/TabCompletion.js'
-
-const noop = (...args) => {
-  return undefined
-}
-
-const getFn = (method) => {
-  switch (method) {
-    case HtmlWorkerCommandType.GetTabCompletion:
-      return TabCompletion.htmlTabCompletion
-    case HtmlWorkerCommandType.GetCompletion:
-      return Completion.htmlCompletion
-    case HtmlWorkerCommandType.GetClosingTag:
-      return ClosingTag.getClosingTag
-    default:
-      return noop
-  }
-}
+import * as CommandMap from '../CommandMap/CommandMap.js'
 
 export const execute = async (method, ...params) => {
-  const fn = getFn(method)
+  const fn = CommandMap.getFn(method)
   // @ts-ignore
   const result = await fn(...params)
   return result
