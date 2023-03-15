@@ -31,3 +31,32 @@ test('tag with text', () => {
     deleted: 0,
   })
 })
+
+test('inside document', () => {
+  expect(
+    htmlAutoClose(
+      `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></
+  </body>
+</html>
+`,
+      [
+        {
+          endOffset: 129,
+          inserted: '/',
+          deleted: 0,
+        },
+      ]
+    )
+  ).toEqual({
+    startOffset: 130,
+    inserted: 'div>',
+    deleted: 0,
+  })
+})
