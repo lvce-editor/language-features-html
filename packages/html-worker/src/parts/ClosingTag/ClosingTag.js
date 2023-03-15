@@ -8,12 +8,16 @@ export const getClosingTag = (text, offset) => {
   if (tokens.length === 0) {
     return undefined
   }
+  if (text[offset - 1] !== '<') {
+    return undefined
+  }
   const index = GetTokenIndexAtOffset.getTokenIndexAtOffset(tokens, offset)
   const token = tokens[index]
   switch (token.type) {
     case TokenType.OpeningAngleBracket:
     case TokenType.ClosingTagSlash:
     case TokenType.WhitespaceAfterOpeningTagOpenAngleBracket:
+    case TokenType.Content:
       const previousOpenTag = GetPreviousOpenTag.getPreviousOpenTag(
         tokens,
         index
