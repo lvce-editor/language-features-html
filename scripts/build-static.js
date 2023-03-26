@@ -50,7 +50,8 @@ const workerUrlFilePath = path.join(
 
 const replace = async (path, occurrence, replacement) => {
   const oldContent = await readFile(path, 'utf8')
-  const newContent = oldContent.replace(occurrence, replacement)
+  // @ts-ignore
+  const newContent = oldContent.replaceAll(occurrence, replacement)
   await writeFile(path, newContent)
 }
 
