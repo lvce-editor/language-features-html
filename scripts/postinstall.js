@@ -25,17 +25,25 @@ const removeSourceMapUrl = () => {
   writeFileSync(typeScriptPath, newContent)
 }
 
-const exportTypeScript = () => {
+const modifyTypeScript = () => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const newContent = content.endsWith('export {ts}\n')
     ? content
     : content + 'export {ts}\n'
-  writeFileSync(typeScriptPath, newContent)
+  const newContent2 = newContent.includes(
+    `process.env.TS_ETW_MODULE_PATH) != null`
+  )
+    ? newContent.replace(
+        'process.env.TS_ETW_MODULE_PATH',
+        `(typeof process === 'undefined' ? undefined : process.env.TS_ETW_MODULE_PATH)`
+      )
+    : newContent
+  writeFileSync(typeScriptPath, newContent2)
 }
 
 const main = () => {
   removeSourceMapUrl()
-  exportTypeScript()
+  modifyTypeScript()
 }
 
 main()
