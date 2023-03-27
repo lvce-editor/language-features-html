@@ -14,6 +14,7 @@ const locations = [
   'packages/extension/package-lock.json',
   'packages/html-worker/package-lock.json',
   '.github/workflows/ci.yml',
+  '.github/workflows/pr.yml',
   '.github/workflows/release.yml',
   'scripts/computeNodeModulesCacheKey.js',
   'scripts/postinstall.js',
