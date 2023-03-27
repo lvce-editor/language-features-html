@@ -1,9 +1,8 @@
-import { execSync } from 'child_process'
+import { packageExtension } from '@lvce-editor/package-extension'
 import fs, { readFileSync, writeFileSync } from 'fs'
+import { cp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import path, { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import { packageExtension } from '@lvce-editor/package-extension'
-import { cp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 
 const NOT_NEEDED = []
 

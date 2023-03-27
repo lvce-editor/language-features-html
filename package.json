@@ -12,11 +12,14 @@
   "author": "",
   "type": "module",
   "devDependencies": {
+    "@lvce-editor/package-extension": "^0.0.5",
     "@lvce-editor/server": "^0.14.5",
     "lerna": "^6.6.1",
     "prettier": "^2.8.7",
-    "typescript": "^5.0.2",
-    "@lvce-editor/package-extension": "^0.0.5"
+    "typescript": "^5.0.2"
+  },
+  "optionalDependencies": {
+    "@vscode/web-custom-data": "^0.4.6"
   },
   "xo": {
     "rules": {

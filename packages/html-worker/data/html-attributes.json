@@ -1,6 +1,291 @@
 {
   "globalAttributes": [
     {
+      "name": "accesskey"
+    },
+    {
+      "name": "autocapitalize"
+    },
+    {
+      "name": "class"
+    },
+    {
+      "name": "contenteditable"
+    },
+    {
+      "name": "contextmenu"
+    },
+    {
+      "name": "dir"
+    },
+    {
+      "name": "draggable"
+    },
+    {
+      "name": "dropzone"
+    },
+    {
+      "name": "exportparts"
+    },
+    {
+      "name": "hidden"
+    },
+    {
+      "name": "id"
+    },
+    {
+      "name": "inputmode"
+    },
+    {
+      "name": "is"
+    },
+    {
+      "name": "itemid"
+    },
+    {
+      "name": "itemprop"
+    },
+    {
+      "name": "itemref"
+    },
+    {
+      "name": "itemscope"
+    },
+    {
+      "name": "itemtype"
+    },
+    {
+      "name": "lang"
+    },
+    {
+      "name": "part"
+    },
+    {
+      "name": "role"
+    },
+    {
+      "name": "slot"
+    },
+    {
+      "name": "spellcheck"
+    },
+    {
+      "name": "style"
+    },
+    {
+      "name": "tabindex"
+    },
+    {
+      "name": "title"
+    },
+    {
+      "name": "translate"
+    },
+    {
+      "name": "onabort"
+    },
+    {
+      "name": "onblur"
+    },
+    {
+      "name": "oncanplay"
+    },
+    {
+      "name": "oncanplaythrough"
+    },
+    {
+      "name": "onchange"
+    },
+    {
+      "name": "onclick"
+    },
+    {
+      "name": "oncontextmenu"
+    },
+    {
+      "name": "ondblclick"
+    },
+    {
+      "name": "ondrag"
+    },
+    {
+      "name": "ondragend"
+    },
+    {
+      "name": "ondragenter"
+    },
+    {
+      "name": "ondragleave"
+    },
+    {
+      "name": "ondragover"
+    },
+    {
+      "name": "ondragstart"
+    },
+    {
+      "name": "ondrop"
+    },
+    {
+      "name": "ondurationchange"
+    },
+    {
+      "name": "onemptied"
+    },
+    {
+      "name": "onended"
+    },
+    {
+      "name": "onerror"
+    },
+    {
+      "name": "onfocus"
+    },
+    {
+      "name": "onformchange"
+    },
+    {
+      "name": "onforminput"
+    },
+    {
+      "name": "oninput"
+    },
+    {
+      "name": "oninvalid"
+    },
+    {
+      "name": "onkeydown"
+    },
+    {
+      "name": "onkeypress"
+    },
+    {
+      "name": "onkeyup"
+    },
+    {
+      "name": "onload"
+    },
+    {
+      "name": "onloadeddata"
+    },
+    {
+      "name": "onloadedmetadata"
+    },
+    {
+      "name": "onloadstart"
+    },
+    {
+      "name": "onmousedown"
+    },
+    {
+      "name": "onmousemove"
+    },
+    {
+      "name": "onmouseout"
+    },
+    {
+      "name": "onmouseover"
+    },
+    {
+      "name": "onmouseup"
+    },
+    {
+      "name": "onmousewheel"
+    },
+    {
+      "name": "onmouseenter"
+    },
+    {
+      "name": "onmouseleave"
+    },
+    {
+      "name": "onpause"
+    },
+    {
+      "name": "onplay"
+    },
+    {
+      "name": "onplaying"
+    },
+    {
+      "name": "onprogress"
+    },
+    {
+      "name": "onratechange"
+    },
+    {
+      "name": "onreset"
+    },
+    {
+      "name": "onresize"
+    },
+    {
+      "name": "onreadystatechange"
+    },
+    {
+      "name": "onscroll"
+    },
+    {
+      "name": "onseeked"
+    },
+    {
+      "name": "onseeking"
+    },
+    {
+      "name": "onselect"
+    },
+    {
+      "name": "onshow"
+    },
+    {
+      "name": "onstalled"
+    },
+    {
+      "name": "onsubmit"
+    },
+    {
+      "name": "onsuspend"
+    },
+    {
+      "name": "ontimeupdate"
+    },
+    {
+      "name": "onvolumechange"
+    },
+    {
+      "name": "onwaiting"
+    },
+    {
+      "name": "onpointercancel"
+    },
+    {
+      "name": "onpointerdown"
+    },
+    {
+      "name": "onpointerenter"
+    },
+    {
+      "name": "onpointerleave"
+    },
+    {
+      "name": "onpointerlockchange"
+    },
+    {
+      "name": "onpointerlockerror"
+    },
+    {
+      "name": "onpointermove"
+    },
+    {
+      "name": "onpointerout"
+    },
+    {
+      "name": "onpointerover"
+    },
+    {
+      "name": "onpointerup"
+    },
+    {
       "name": "aria-activedescendant"
     },
     {
@@ -10,13 +295,139 @@
       "name": "aria-autocomplete"
     },
     {
-      "name": "class"
+      "name": "aria-busy"
     },
     {
-      "name": "id"
+      "name": "aria-checked"
     },
     {
-      "name": "tabindex"
+      "name": "aria-colcount"
+    },
+    {
+      "name": "aria-colindex"
+    },
+    {
+      "name": "aria-colspan"
+    },
+    {
+      "name": "aria-controls"
+    },
+    {
+      "name": "aria-current"
+    },
+    {
+      "name": "aria-describedby"
+    },
+    {
+      "name": "aria-disabled"
+    },
+    {
+      "name": "aria-dropeffect"
+    },
+    {
+      "name": "aria-errormessage"
+    },
+    {
+      "name": "aria-expanded"
+    },
+    {
+      "name": "aria-flowto"
+    },
+    {
+      "name": "aria-grabbed"
+    },
+    {
+      "name": "aria-haspopup"
+    },
+    {
+      "name": "aria-hidden"
+    },
+    {
+      "name": "aria-invalid"
+    },
+    {
+      "name": "aria-label"
+    },
+    {
+      "name": "aria-labelledby"
+    },
+    {
+      "name": "aria-level"
+    },
+    {
+      "name": "aria-live"
+    },
+    {
+      "name": "aria-modal"
+    },
+    {
+      "name": "aria-multiline"
+    },
+    {
+      "name": "aria-multiselectable"
+    },
+    {
+      "name": "aria-orientation"
+    },
+    {
+      "name": "aria-owns"
+    },
+    {
+      "name": "aria-placeholder"
+    },
+    {
+      "name": "aria-posinset"
+    },
+    {
+      "name": "aria-pressed"
+    },
+    {
+      "name": "aria-readonly"
+    },
+    {
+      "name": "aria-relevant"
+    },
+    {
+      "name": "aria-required"
+    },
+    {
+      "name": "aria-roledescription"
+    },
+    {
+      "name": "aria-rowcount"
+    },
+    {
+      "name": "aria-rowindex"
+    },
+    {
+      "name": "aria-rowspan"
+    },
+    {
+      "name": "aria-selected"
+    },
+    {
+      "name": "aria-setsize"
+    },
+    {
+      "name": "aria-sort"
+    },
+    {
+      "name": "aria-valuemax"
+    },
+    {
+      "name": "aria-valuemin"
+    },
+    {
+      "name": "aria-valuenow"
+    },
+    {
+      "name": "aria-valuetext"
+    },
+    {
+      "name": "aria-details"
+    },
+    {
+      "name": "aria-keyshortcuts"
     }
   ]
 }
