@@ -1,0 +1,22 @@
+{
+  "globalAttributes": [
+    {
+      "name": "aria-activedescendant"
+    },
+    {
+      "name": "aria-atomic"
+    },
+    {
+      "name": "aria-autocomplete"
+    },
+    {
+      "name": "class"
+    },
+    {
+      "name": "id"
+    },
+    {
+      "name": "tabindex"
+    }
+  ]
+}
