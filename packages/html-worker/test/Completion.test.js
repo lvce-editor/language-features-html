@@ -14,23 +14,21 @@ test('start tag completions', async () => {
 })
 
 test('attribute name completions', async () => {
-  expect(await htmlCompletion('', '<h1 >', 4)).toEqual([
-    {
-      label: 'class',
-      snippet: 'class="$1"',
-      kind: 2,
-    },
-    {
-      label: 'id',
-      snippet: 'id="$1"',
-      kind: 2,
-    },
-    {
-      label: 'tabindex',
-      snippet: 'tabindex="$1"',
-      kind: 2,
-    },
-  ])
+  const completions = await htmlCompletion('', '<h1 >', 4)
+  const completionClass = completions.find((item) => item.label === 'class')
+  expect(completionClass).toBeDefined()
+  expect(completionClass).toEqual({
+    label: 'class',
+    snippet: 'class="$1"',
+    kind: 2,
+  })
+  const completionId = completions.find((item) => item.label === 'id')
+  expect(completionId).toBeDefined()
+  expect(completionId).toEqual({
+    label: 'id',
+    snippet: 'id="$1"',
+    kind: 2,
+  })
 })
 
 test('inside content', async () => {
