@@ -8,7 +8,8 @@
     "onTabCompletion:html",
     "onLanguage:html",
     "onLanguage:handlebars",
-    "onClosingTag:html"
+    "onClosingTag:html",
+    "onDefinition:html"
   ],
   "browser": "src/languageFeaturesHtmlMain.js",
   "languages": [

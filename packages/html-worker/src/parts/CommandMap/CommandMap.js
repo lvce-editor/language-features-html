@@ -2,6 +2,7 @@ import * as ClosingTag from '../ClosingTag/ClosingTag.js'
 import * as Completion from '../Completion/Completions.js'
 import * as HtmlWorkerCommandType from '../HtmlWorkerCommandType/HtmlWorkerCommandType.js'
 import * as TabCompletion from '../TabCompletion/TabCompletion.js'
+import * as Definition from '../Definition/Definition.js'
 
 const noop = (...args) => {
   return undefined
@@ -15,6 +16,8 @@ export const getFn = (method) => {
       return Completion.htmlCompletion
     case HtmlWorkerCommandType.GetClosingTag:
       return ClosingTag.getClosingTag
+    case HtmlWorkerCommandType.GetDefinition:
+      return Definition.htmlDefinition
     default:
       return noop
   }
