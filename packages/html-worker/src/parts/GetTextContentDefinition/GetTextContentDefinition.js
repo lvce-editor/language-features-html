@@ -5,18 +5,14 @@ const getModule = (tagName) => {
   switch (tagName) {
     case TagName.Script:
       return import(
-        '../GetTextContentCompletionScript/GetTextContentCompletionScript.js'
-      )
-    case TagName.Style:
-      return import(
-        '../GetTextContentCompletionStyle/GetTextContentCompletionStyle.js'
+        '../GetTextContentDefinitionScript/GetTextContentDefinitionScript.js'
       )
     default:
       return undefined
   }
 }
 
-export const getTextContentCompletion = async (
+export const getTextContentDefinition = async (
   uri,
   text,
   tokens,
@@ -31,5 +27,5 @@ export const getTextContentCompletion = async (
   if (!module) {
     return []
   }
-  return module.getCompletion(uri, embeddedContent, relativeOffset)
+  return module.getDefinition(uri, embeddedContent, relativeOffset)
 }

@@ -17,9 +17,5 @@ x
   await Editor.goToDefinition()
 
   // assert
-  const completions = Locator('#Completions')
-  await expect(completions).toBeVisible()
-  const completionItems = completions.locator('.EditorCompletionItem')
-  // TODO
-  await expect(completionItems.nth(0)).toHaveText('toExponential')
+  // TODO cursor should be at definition
 }

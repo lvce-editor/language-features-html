@@ -1,11 +1,8 @@
-import * as GetAttributeNameCompletions from '../GetAttributeNameCompletions/GetAttributeNameCompletions.js'
-import * as GetClosingTagCompletions from '../GetClosingTagCompletions/GetClosingTagCompletions.js'
-import * as GetHtmlTagCompletions from '../GetHtmlTagCompletions/GetHtmlTagCompletions.js'
-import * as GetTextContentCompletion from '../GetTextContentCompletion/GetTextContentCompletion.js'
-import { tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
+import * as Assert from '../Assert/Assert.js'
+import * as GetTextContentDefinition from '../GetTextContentDefinition/GetTextContentDefinition.js'
 import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAtOffset.js'
 import * as TokenType from '../TokenType/TokenType.js'
-import * as Assert from '../Assert/Assert.js'
+import { tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
 
 const NO_DEFINITION = undefined
 
@@ -17,8 +14,6 @@ const NO_DEFINITION = undefined
  * @param {number} offset
  */
 export const htmlDefinition = (uri, text, offset) => {
-  // TODO try catch is slow
-  // is it necessary here or in extension host service?
   try {
     Assert.string(uri)
     Assert.string(text)
@@ -28,7 +23,7 @@ export const htmlDefinition = (uri, text, offset) => {
     const tokenAtOffset = tokens[index]
     switch (tokenAtOffset.type) {
       case TokenType.Content:
-        return GetTextContentCompletion.getTextContentCompletion(
+        return GetTextContentDefinition.getTextContentDefinition(
           uri,
           text,
           tokens,
