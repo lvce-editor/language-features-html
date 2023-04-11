@@ -5,7 +5,11 @@ const getModule = (tagName) => {
   switch (tagName) {
     case TagName.Script:
       return import(
-        '../GetTextContentDefinitionScript/GetTextContentDefinitionScript.js'
+        '../GetTextContentCompletionScript/GetTextContentCompletionScript.js'
+      )
+    case TagName.Style:
+      return import(
+        '../GetTextContentCompletionStyle/GetTextContentCompletionStyle.js'
       )
     default:
       return undefined
@@ -27,5 +31,5 @@ export const getTextContentCompletion = async (
   if (!module) {
     return []
   }
-  return module.getDefinition(uri, embeddedContent, relativeOffset)
+  return module.getCompletion(uri, embeddedContent, relativeOffset)
 }
