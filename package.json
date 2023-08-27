@@ -12,10 +12,10 @@
   "author": "",
   "type": "module",
   "devDependencies": {
-    "@lvce-editor/server": "^0.17.5",
+    "@lvce-editor/server": "^0.17.10",
     "lerna": "^7.1.5",
     "prettier": "^3.0.2",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "@lvce-editor/package-extension": "^0.0.5",
     "@lerna/legacy-package-management": "^7.1.5"
   },
