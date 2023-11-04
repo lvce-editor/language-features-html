@@ -328,6 +328,10 @@
     "snippet": "select"
   },
   {
+    "label": "search",
+    "snippet": "search"
+  },
+  {
     "label": "small",
     "snippet": "small"
   },
