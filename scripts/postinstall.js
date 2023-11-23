@@ -13,7 +13,7 @@ const typeScriptPath = join(
   'typescript.js',
 )
 
-const removeSourceMapUrl = () => {
+const removeSourceMapUrl = (typeScriptPath) => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const sourceMapString = `//# sourceMappingURL=typescript.js.map\n`
   const sourceMapIndex = content.lastIndexOf(sourceMapString)
@@ -50,8 +50,8 @@ const modifyTypeScript = (typeScriptPath) => {
 }
 
 const main = () => {
-  removeSourceMapUrl()
-  modifyTypeScript()
+  removeSourceMapUrl(typeScriptPath)
+  modifyTypeScript(typeScriptPath)
 }
 
 main()
