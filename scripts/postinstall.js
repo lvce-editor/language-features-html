@@ -10,10 +10,10 @@ const typeScriptPath = join(
   'node_modules',
   'typescript',
   'lib',
-  'typescript.js'
+  'typescript.js',
 )
 
-const removeSourceMapUrl = () => {
+const removeSourceMapUrl = (typeScriptPath) => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const sourceMapString = `//# sourceMappingURL=typescript.js.map\n`
   const sourceMapIndex = content.lastIndexOf(sourceMapString)
@@ -25,25 +25,33 @@ const removeSourceMapUrl = () => {
   writeFileSync(typeScriptPath, newContent)
 }
 
-const modifyTypeScript = () => {
+const modifyTypeScript = (typeScriptPath) => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const newContent = content.endsWith('export {ts}\n')
     ? content
     : content + 'export {ts}\n'
   const newContent2 = newContent.includes(
-    `process.env.TS_ETW_MODULE_PATH) != null`
+    `process.env.TS_ETW_MODULE_PATH) != null`,
   )
     ? newContent.replace(
         'process.env.TS_ETW_MODULE_PATH',
-        `(typeof process === 'undefined' ? undefined : process.env.TS_ETW_MODULE_PATH)`
+        `(typeof process === 'undefined' ? undefined : process.env.TS_ETW_MODULE_PATH)`,
       )
     : newContent
-  writeFileSync(typeScriptPath, newContent2)
+  const newContent3 = newContent2.replace(
+    `const etwModulePath = process.env.TS_ETW_MODULE_PATH ?? "./node_modules/@microsoft/typescript-etw";`,
+    `const etwModulePath = typeof process === 'undefined' ? undefined : process.env.TS_ETW_MODULE_PATH ?? "./node_modules/@microsoft/typescript-etw";`,
+  )
+  const newContent4 = newContent3.replace(
+    `etwModule =   require(etwModulePath);`,
+    `etwModulePath = typeof require === 'undefined' ? undefined : require(etwModulePath)`,
+  )
+  writeFileSync(typeScriptPath, newContent4)
 }
 
 const main = () => {
-  removeSourceMapUrl()
-  modifyTypeScript()
+  removeSourceMapUrl(typeScriptPath)
+  modifyTypeScript(typeScriptPath)
 }
 
 main()
