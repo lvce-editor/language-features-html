@@ -2,6 +2,7 @@ const selfClosingTags = new Set([
   'area',
   'base',
   'br',
+  'link',
   'col',
   'embed',
   'hr',
