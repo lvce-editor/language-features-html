@@ -7,3 +7,7 @@ test('isSelfClosingTag - img', () => {
 test('isSelfClosingTag - div', () => {
   expect(IsSelfClosingTag.isSelfClosingTag('div')).toBe(false)
 })
+
+test('isSelfClosingTag - link', () => {
+  expect(IsSelfClosingTag.isSelfClosingTag('link')).toBe(true)
+})
