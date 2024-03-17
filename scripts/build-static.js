@@ -30,9 +30,9 @@ for (const dirent of ['src', 'data']) {
       'extensions',
       'builtin.language-features-html',
       'html-worker',
-      dirent
+      dirent,
     ),
-    { recursive: true, force: true }
+    { recursive: true, force: true },
   )
 }
 
@@ -45,7 +45,7 @@ const workerUrlFilePath = path.join(
   'src',
   'parts',
   'HtmlWorkerUrl',
-  'HtmlWorkerUrl.js'
+  'HtmlWorkerUrl.js',
 )
 
 const replace = async (path, occurrence, replacement) => {
@@ -58,7 +58,7 @@ const replace = async (path, occurrence, replacement) => {
 await replace(
   workerUrlFilePath,
   '../../../../html-worker/src/htmlWorkerMain.js',
-  '../../../html-worker/src/htmlWorkerMain.js'
+  '../../../html-worker/src/htmlWorkerMain.js',
 )
 
 const typeScriptLibPath = join(root, 'node_modules', 'typescript', 'lib')
@@ -71,15 +71,15 @@ await mkdir(
     commitHash,
     'extensions',
     'builtin.language-features-html',
-    'typescript'
-  )
+    'typescript',
+  ),
 )
 
 const typescriptDirents = await readdir(typeScriptLibPath)
 for (const typeScriptDirent of typescriptDirents) {
   if (
     typeScriptDirent.startsWith('lib.') ||
-    typeScriptDirent === 'typescript.js'
+    typeScriptDirent === 'typescript-esm.js'
   ) {
     await cp(
       join(typeScriptLibPath, typeScriptDirent),
@@ -91,8 +91,8 @@ for (const typeScriptDirent of typescriptDirents) {
         'builtin.language-features-html',
         'typescript',
         'lib',
-        typeScriptDirent
-      )
+        typeScriptDirent,
+      ),
     )
   }
 }
@@ -107,8 +107,8 @@ for (const dirent of ['README.md', 'LICENSE.txt', 'package.json']) {
       'extensions',
       'builtin.language-features-html',
       'typescript',
-      dirent
-    )
+      dirent,
+    ),
   )
 }
 
@@ -122,11 +122,11 @@ const typescriptPathFile = path.join(
   'src',
   'parts',
   'TypeScriptPath',
-  'TypeScriptPath.js'
+  'TypeScriptPath.js',
 )
 
 await replace(
   typescriptPathFile,
   '../../../../../node_modules/typescript/lib',
-  `../../../../typescript/lib`
+  `../../../../typescript/lib`,
 )
