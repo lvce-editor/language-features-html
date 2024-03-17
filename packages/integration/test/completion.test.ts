@@ -1,6 +1,6 @@
 import { testWorker } from '../src/testWorker.js'
 
-test.skip('completion', async () => {
+test('completion', async () => {
   const execMap = {}
   const config = {}
   const quickPick = () => {}
@@ -9,14 +9,10 @@ test.skip('completion', async () => {
     config,
     quickPick,
   })
-  const text = `h1 {
-  displ`
-  const offset = 12
+  const uri = ''
+  const text = `<`
+  const offset = 1
   expect(
-    await worker.execute('Css.getCompletion', text, offset),
-  ).toContainEqual({
-    kind: 1,
-    label: 'display',
-    snippet: 'display: ',
-  })
+    await worker.execute('Html.getCompletion', uri, text, offset),
+  ).toContainEqual({ kind: 1, label: 'a', snippet: 'a' })
 })

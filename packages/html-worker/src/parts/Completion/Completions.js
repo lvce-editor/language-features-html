@@ -44,7 +44,7 @@ export const htmlCompletion = (uri, text, offset) => {
           text,
           tokens,
           index,
-          offset
+          offset,
         )
       default:
     }
