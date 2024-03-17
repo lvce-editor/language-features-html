@@ -13,6 +13,14 @@ const typeScriptPath = join(
   'typescript.js',
 )
 
+const typeScriptPathEsm = join(
+  root,
+  'node_modules',
+  'typescript',
+  'lib',
+  'typescript-esm.js',
+)
+
 const removeSourceMapUrl = (typeScriptPath) => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const sourceMapString = `//# sourceMappingURL=typescript.js.map\n`
@@ -25,7 +33,7 @@ const removeSourceMapUrl = (typeScriptPath) => {
   writeFileSync(typeScriptPath, newContent)
 }
 
-const modifyTypeScript = (typeScriptPath) => {
+const modifyTypeScript = (typeScriptPath, typeScriptPathEsm) => {
   const content = readFileSync(typeScriptPath, 'utf8')
   const newContent = content.endsWith('export {ts}\n')
     ? content
@@ -46,12 +54,12 @@ const modifyTypeScript = (typeScriptPath) => {
     `etwModule =   require(etwModulePath);`,
     `etwModulePath = typeof require === 'undefined' ? undefined : require(etwModulePath)`,
   )
-  writeFileSync(typeScriptPath, newContent4)
+  writeFileSync(typeScriptPathEsm, newContent4)
 }
 
 const main = () => {
-  removeSourceMapUrl(typeScriptPath)
-  modifyTypeScript(typeScriptPath)
+  modifyTypeScript(typeScriptPath, typeScriptPathEsm)
+  removeSourceMapUrl(typeScriptPathEsm)
 }
 
 main()

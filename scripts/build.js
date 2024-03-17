@@ -18,7 +18,7 @@ fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 fs.mkdirSync(path.join(root, 'dist'))
 
 const packageJson = JSON.parse(
-  readFileSync(join(extension, 'package.json')).toString()
+  readFileSync(join(extension, 'package.json')).toString(),
 )
 delete packageJson.xo
 delete packageJson.jest
@@ -28,13 +28,13 @@ delete packageJson.scripts
 
 fs.writeFileSync(
   join(root, 'dist', 'package.json'),
-  JSON.stringify(packageJson, null, 2) + '\n'
+  JSON.stringify(packageJson, null, 2) + '\n',
 )
 fs.copyFileSync(join(root, 'README.md'), join(root, 'dist', 'README.md'))
 fs.copyFileSync(join(extension, 'icon.png'), join(root, 'dist', 'icon.png'))
 fs.copyFileSync(
   join(extension, 'extension.json'),
-  join(root, 'dist', 'extension.json')
+  join(root, 'dist', 'extension.json'),
 )
 fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
   recursive: true,
@@ -63,12 +63,12 @@ const workerUrlFilePath = path.join(
   'src',
   'parts',
   'HtmlWorkerUrl',
-  'HtmlWorkerUrl.js'
+  'HtmlWorkerUrl.js',
 )
 const oldContent = readFileSync(workerUrlFilePath, 'utf8')
 const newContent = oldContent.replace(
   '../../../../html-worker/src/htmlWorkerMain.js',
-  '../../../html-worker/src/htmlWorkerMain.js'
+  '../../../html-worker/src/htmlWorkerMain.js',
 )
 writeFileSync(workerUrlFilePath, newContent)
 
@@ -87,11 +87,11 @@ const typescriptDirents = await readdir(typeScriptLibPath)
 for (const typeScriptDirent of typescriptDirents) {
   if (
     typeScriptDirent.startsWith('lib.') ||
-    typeScriptDirent === 'typescript.js'
+    typeScriptDirent === 'typescript-esm.js'
   ) {
     await cp(
       join(typeScriptLibPath, typeScriptDirent),
-      join(root, 'dist', 'typescript', 'lib', typeScriptDirent)
+      join(root, 'dist', 'typescript', 'lib', typeScriptDirent),
     )
   }
 }
@@ -99,7 +99,7 @@ for (const typeScriptDirent of typescriptDirents) {
 for (const dirent of ['README.md', 'LICENSE.txt', 'package.json']) {
   await cp(
     join(typeScriptPath, dirent),
-    join(root, 'dist', 'typescript', dirent)
+    join(root, 'dist', 'typescript', dirent),
   )
 }
 
@@ -110,13 +110,13 @@ const typescriptPathFile = path.join(
   'src',
   'parts',
   'TypeScriptPath',
-  'TypeScriptPath.js'
+  'TypeScriptPath.js',
 )
 
 await replace(
   typescriptPathFile,
   '../../../../../node_modules/typescript/lib',
-  `../../../../typescript/lib`
+  `../../../../typescript/lib`,
 )
 
 await packageExtension({
