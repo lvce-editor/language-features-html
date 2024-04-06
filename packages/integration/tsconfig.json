@@ -4,7 +4,7 @@
     "lib": ["esnext"],
     "checkJs": true,
     "module": "NodeNext",
-    "types": ["node", "jest"],
+    "types": ["node"],
     "moduleResolution": "NodeNext",
     "rootDir": ".",
     "allowJs": true,

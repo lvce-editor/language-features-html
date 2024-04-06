@@ -1,3 +1,4 @@
+import { expect, test } from '@jest/globals'
 import { testWorker } from '../src/testWorker.js'
 
 test('completion', async () => {
