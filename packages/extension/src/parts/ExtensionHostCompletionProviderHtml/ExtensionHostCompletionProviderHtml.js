@@ -6,6 +6,7 @@ export const languageId = 'html'
 
 export const provideCompletions = async (textDocument, offset) => {
   console.log('PROVIDER HTML COMPLETION')
+  // @ts-ignore
   const text = vscode.getTextFromTextDocument(textDocument)
   const completions = await Completion.htmlCompletion('', text, offset)
   console.log({ completions })
