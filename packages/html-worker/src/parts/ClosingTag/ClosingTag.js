@@ -20,7 +20,7 @@ export const getClosingTag = (text, offset) => {
     case TokenType.Content:
       const previousOpenTag = GetPreviousOpenTag.getPreviousOpenTag(
         tokens,
-        index
+        index,
       )
       if (!previousOpenTag) {
         return undefined
