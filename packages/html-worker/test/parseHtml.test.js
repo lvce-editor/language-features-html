@@ -1,4 +1,5 @@
 import { parseHtml } from '../src/parse/ParseHtml.js'
+import {test, expect} from '@jest/globals'
 
 const toJSON = (node) => ({
   tag: node.tag,

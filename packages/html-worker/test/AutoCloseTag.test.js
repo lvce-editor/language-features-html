@@ -1,4 +1,5 @@
 import { htmlAutoClose } from '../src/parts/AutoCloseTag/AutoCloseTag.js'
+import {test, expect} from '@jest/globals'
 
 test('basic', () => {
   expect(
