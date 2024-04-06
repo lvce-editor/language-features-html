@@ -1,4 +1,5 @@
 import * as ToggleComment from '../src/parts/ToggleComment/ToggleComment.js'
+import { test, expect } from '@jest/globals'
 
 const expectComment = (text, offset) => {
   return {

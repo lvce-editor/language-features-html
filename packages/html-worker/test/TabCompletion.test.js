@@ -1,4 +1,5 @@
 import { htmlTabCompletion } from '../src/parts/TabCompletion/TabCompletion.js'
+import {test, expect} from '@jest/globals'
 
 test('default', async () => {
   expect(await htmlTabCompletion('', 'h1', 2)).toEqual({
