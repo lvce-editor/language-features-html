@@ -3,7 +3,9 @@
   "version": "0.0.0-dev",
   "description": "",
   "main": "src/languageFeaturesHtmlMain.js",
-  "scripts": {},
+  "scripts": {
+    "type-check": "tsc"
+  },
   "keywords": [],
   "author": "",
   "type": "module",

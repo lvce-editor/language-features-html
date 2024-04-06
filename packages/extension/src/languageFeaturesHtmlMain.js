@@ -5,10 +5,15 @@ import * as DefinitionProvider from './parts/ExtensionHostDefinitionProviderHtml
 
 export const activate = () => {
   // TODO
+  // @ts-ignore
   vscode.registerCompletionProvider(CompletionProvider)
+  // @ts-ignore
   vscode.registerTabCompletionProvider(TabCompletionProvider)
+  // @ts-ignore
   vscode.registerDefinitionProvider(DefinitionProvider)
+  // @ts-ignore
   if (vscode.registerClosingTagProvider) {
+    // @ts-ignore
     vscode.registerClosingTagProvider(ClosingTagProvider)
   }
 }
