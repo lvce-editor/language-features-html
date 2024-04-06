@@ -8,7 +8,9 @@ const importJsonNode = async (path) => {
 }
 
 const importJsonBrowser = async (path) => {
+  // @ts-ignore
   const absolutePath = import.meta.resolve(`../../../${path}`)
+  // @ts-ignore
   const response = await fetch(absolutePath)
   if (!response.ok) {
     throw new Error(response.statusText)

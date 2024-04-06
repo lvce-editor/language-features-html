@@ -2,6 +2,7 @@ import {
   tokenizeHtml,
   getTokenAtOffset,
   TokenType,
+// @ts-ignore
 } from '../../parse/TokenizeHtml.js'
 
 export const autoInsertQuotes = (text, edits) => {
