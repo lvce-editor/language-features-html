@@ -1,5 +1,8 @@
+// @ts-ignore
 import * as Command from '../Command/Command.js'
+// @ts-ignore
 import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.js'
+// @ts-ignore
 import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.js'
 
 export const getResponse = async (message) => {

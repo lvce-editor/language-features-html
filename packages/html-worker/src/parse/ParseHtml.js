@@ -21,6 +21,7 @@ export const parseHtml = (text) => {
       case TokenType.TagNameStart:
         const startTag = text.slice(tokens[i].offset, tokens[i + 1].offset)
         const child = createNode(startTag, current, [], tokens[i].offset - 1, 0)
+        // @ts-ignore
         current.children.push(child)
         current = child
         break
@@ -68,7 +69,9 @@ export const findNodeAtOffset = (htmlDocument, offset) => {
 
 const result = parseHtml('<div></div><div><') // ?.
 
+// @ts-ignore
 result.children[0].start // ?
+// @ts-ignore
 result.children[0].end // ?
 
 findNodeAtOffset(result, 17) // ?

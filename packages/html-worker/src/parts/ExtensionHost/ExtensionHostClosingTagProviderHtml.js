@@ -8,9 +8,11 @@ const getClosingTagFromHtmlResult = (htmlResult) => {
   }
 }
 /**
+ // @ts-ignore
  * @type{vscode.ClosingTagProvider['provideClosingTag']}
  */
 export const provideClosingTag = (textDocument, offset) => {
+  // @ts-ignore
   const text = vscode.getTextFromTextDocument(textDocument)
   const htmlResult = AutoCloseTag.htmlAutoClose(text, offset)
   const result = getClosingTagFromHtmlResult(htmlResult)

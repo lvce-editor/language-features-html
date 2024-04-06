@@ -19,6 +19,7 @@ const toSnippet = (propertyName) => {
 }
 
 /**
+ // @ts-ignore
  * @type{vscode.Completion[]}
  */
 const NULL_COMPLETIONS = []
@@ -27,6 +28,7 @@ const NULL_COMPLETIONS = []
  *
  * @param {string} text
  * @param {number} offset
+ // @ts-ignore
  * @returns {vscode.Completion[]}
  */
 export const cssCompletion = (text, offset) => {

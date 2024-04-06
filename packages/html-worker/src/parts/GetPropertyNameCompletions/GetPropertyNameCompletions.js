@@ -1,3 +1,4 @@
+// @ts-ignore
 import { propertyData } from '../../../data/propertyData.js'
 import * as TokenType from '../CssTokenType/CssTokenType.js'
 import { tokenizeCss } from '../TokenizeCss/TokenizeCss.js'
