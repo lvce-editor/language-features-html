@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals'
+import { beforeEach, expect, jest, test } from '@jest/globals'
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -12,7 +12,7 @@ jest.unstable_mockModule(
         throw new Error('not implemented')
       }),
     }
-  }
+  },
 )
 
 const GetTabCompletionLoremIpsum = await import(

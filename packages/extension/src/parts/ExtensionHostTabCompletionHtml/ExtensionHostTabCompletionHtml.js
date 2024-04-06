@@ -16,6 +16,7 @@ export const provideTabCompletion = async (textDocument, offset) => {
 
   // possibly use textEditor which implements textDocument interface
 
+  // @ts-ignore
   const text = vscode.getTextFromTextDocument(textDocument)
   // vscode.TextDocument.applyEdit(textDocument, edit)
   // const text = textDocument.getText()

@@ -5,6 +5,7 @@ import * as ClosingTag from '../ClosingTag/ClosingTag.js'
 export const languageId = 'html'
 
 export const provideClosingTag = async (textDocument, offset) => {
+  // @ts-ignore
   const text = vscode.getTextFromTextDocument(textDocument)
   const result = await ClosingTag.provideClosingTag(text, offset)
   return result

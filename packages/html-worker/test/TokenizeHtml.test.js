@@ -1,5 +1,6 @@
 import { tokenizeHtml } from '../src/parts/TokenizeHtml/TokenizeHtml.js'
 import * as TokenType from '../src/parts/TokenType/TokenType.js'
+import {test, expect} from '@jest/globals'
 
 const getType = (token) => {
   return token.type

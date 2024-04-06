@@ -1,4 +1,5 @@
 import * as IsSelfClosingTag from '../src/parts/IsSelfClosingTag/IsSelfClosingTag.js'
+import { test, expect } from '@jest/globals'
 
 test('isSelfClosingTag - img', () => {
   expect(IsSelfClosingTag.isSelfClosingTag('img')).toBe(true)

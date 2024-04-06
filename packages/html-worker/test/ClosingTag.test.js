@@ -1,4 +1,5 @@
 import * as ClosingTag from '../src/parts/ClosingTag/ClosingTag.js'
+import { test, expect } from '@jest/globals'
 
 test('getClosingTag', () => {
   const text = `<div><`

@@ -1,4 +1,5 @@
 import { htmlCompletion } from '../src/parts/Completion/Completions.js'
+import { test, expect } from '@jest/globals'
 
 test('start tag completions', async () => {
   expect(await htmlCompletion('', '<', 1)).toContainEqual({
@@ -61,8 +62,8 @@ h1 {
 
 }
 `,
-      13
-    )
+      13,
+    ),
   ).toContainEqual({
     label: 'color',
     snippet: 'color: ',
