@@ -1,6 +1,7 @@
 import * as GetPreviousOpenTag from '../GetPreviousOpenTag/GetPreviousOpenTag.js'
 import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAtOffset.js'
 import * as TokenizeHtml from '../TokenizeHtml/TokenizeHtml.js'
+import * as Character from '../Character/Character.js'
 import * as TokenType from '../TokenType/TokenType.js'
 
 export const getClosingTag = (text, offset) => {
@@ -8,10 +9,12 @@ export const getClosingTag = (text, offset) => {
   if (tokens.length === 0) {
     return undefined
   }
-  if (text[offset - 1] !== '<') {
+  if (text[offset - 1] !== Character.OpeningAngleBracket) {
+    const char = text[offset - 1]
     return undefined
   }
   const index = GetTokenIndexAtOffset.getTokenIndexAtOffset(tokens, offset)
+
   const token = tokens[index]
   switch (token.type) {
     case TokenType.OpeningAngleBracket:
