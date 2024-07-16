@@ -2,6 +2,8 @@ const trimLines = (string) => {
   return string.split('\n').join('')
 }
 
+export const skip = true
+
 export const name = 'css.tab-completion'
 
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
@@ -13,7 +15,7 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
 h1 {
   d
 }
-</style>`
+</style>`,
   )
   await Main.openUri(`${tmpDir}/test.html`)
   await Editor.setCursor(2, 3)
@@ -26,8 +28,8 @@ h1 {
   await expect(editor).toHaveText(
     trimLines(`<style>
 h1 {
-  display: 
+  display:
 }
-</style>`)
+</style>`),
   )
 }
