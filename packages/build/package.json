@@ -11,6 +11,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@vscode/web-custom-data": "^0.4.9"
+    "@vscode/web-custom-data": "^0.4.12"
   }
 }
