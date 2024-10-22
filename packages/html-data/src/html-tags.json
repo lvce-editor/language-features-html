@@ -1,0 +1,426 @@
+[
+  {
+    "label": "a",
+    "snippet": "a"
+  },
+  {
+    "label": "abbr",
+    "snippet": "abbr"
+  },
+  {
+    "label": "address",
+    "snippet": "address"
+  },
+  {
+    "label": "area",
+    "snippet": "area"
+  },
+  {
+    "label": "article",
+    "snippet": "article"
+  },
+  {
+    "label": "aside",
+    "snippet": "aside"
+  },
+  {
+    "label": "audio",
+    "snippet": "audio"
+  },
+  {
+    "label": "b",
+    "snippet": "b"
+  },
+  {
+    "label": "base",
+    "snippet": "base"
+  },
+  {
+    "label": "bdo",
+    "snippet": "bdo"
+  },
+  {
+    "label": "body",
+    "snippet": "body"
+  },
+  {
+    "label": "br",
+    "snippet": "br"
+  },
+  {
+    "label": "button",
+    "snippet": "button"
+  },
+  {
+    "label": "canvas",
+    "snippet": "canvas"
+  },
+  {
+    "label": "caption",
+    "snippet": "caption"
+  },
+  {
+    "label": "center",
+    "snippet": "center"
+  },
+  {
+    "label": "cite",
+    "snippet": "cite"
+  },
+  {
+    "label": "code",
+    "snippet": "code"
+  },
+  {
+    "label": "col",
+    "snippet": "col"
+  },
+  {
+    "label": "colgroup",
+    "snippet": "colgroup"
+  },
+  {
+    "label": "command",
+    "snippet": "command"
+  },
+  {
+    "label": "datalist",
+    "snippet": "datalist"
+  },
+  {
+    "label": "dd",
+    "snippet": "dd"
+  },
+  {
+    "label": "del",
+    "snippet": "del"
+  },
+  {
+    "label": "details",
+    "snippet": "details"
+  },
+  {
+    "label": "dfn",
+    "snippet": "dfn"
+  },
+  {
+    "label": "dialog",
+    "snippet": "dialog"
+  },
+  {
+    "label": "div",
+    "snippet": "div"
+  },
+  {
+    "label": "dl",
+    "snippet": "dl"
+  },
+  {
+    "label": "dt",
+    "snippet": "dt"
+  },
+  {
+    "label": "em",
+    "snippet": "em"
+  },
+  {
+    "label": "embed",
+    "snippet": "embed"
+  },
+  {
+    "label": "fieldset",
+    "snippet": "fieldset"
+  },
+  {
+    "label": "figcaption",
+    "snippet": "figcaption"
+  },
+  {
+    "label": "figure",
+    "snippet": "figure"
+  },
+  {
+    "label": "footer",
+    "snippet": "footer"
+  },
+  {
+    "label": "form",
+    "snippet": "form"
+  },
+  {
+    "label": "h1",
+    "snippet": "h1"
+  },
+  {
+    "label": "h2",
+    "snippet": "h2"
+  },
+  {
+    "label": "h3",
+    "snippet": "h3"
+  },
+  {
+    "label": "h4",
+    "snippet": "h4"
+  },
+  {
+    "label": "h5",
+    "snippet": "h5"
+  },
+  {
+    "label": "h6",
+    "snippet": "h6"
+  },
+  {
+    "label": "head",
+    "snippet": "head"
+  },
+  {
+    "label": "header",
+    "snippet": "header"
+  },
+  {
+    "label": "hr",
+    "snippet": "hr"
+  },
+  {
+    "label": "html",
+    "snippet": "html"
+  },
+  {
+    "label": "i",
+    "snippet": "i"
+  },
+  {
+    "label": "iframe",
+    "snippet": "iframe"
+  },
+  {
+    "label": "img",
+    "snippet": "img"
+  },
+  {
+    "label": "input",
+    "snippet": "input"
+  },
+  {
+    "label": "ins",
+    "snippet": "ins"
+  },
+  {
+    "label": "kbd",
+    "snippet": "kbd"
+  },
+  {
+    "label": "label",
+    "snippet": "label"
+  },
+  {
+    "label": "legend",
+    "snippet": "legend"
+  },
+  {
+    "label": "li",
+    "snippet": "li"
+  },
+  {
+    "label": "link",
+    "snippet": "link"
+  },
+  {
+    "label": "map",
+    "snippet": "map"
+  },
+  {
+    "label": "mark",
+    "snippet": "mark"
+  },
+  {
+    "label": "menu",
+    "snippet": "menu"
+  },
+  {
+    "label": "meta",
+    "snippet": "meta"
+  },
+  {
+    "label": "meter",
+    "snippet": "meter"
+  },
+  {
+    "label": "nav",
+    "snippet": "nav"
+  },
+  {
+    "label": "noscript",
+    "snippet": "noscript"
+  },
+  {
+    "label": "object",
+    "snippet": "object"
+  },
+  {
+    "label": "ol",
+    "snippet": "ol"
+  },
+  {
+    "label": "optgroup",
+    "snippet": "optgroup"
+  },
+  {
+    "label": "option",
+    "snippet": "option"
+  },
+  {
+    "label": "output",
+    "snippet": "output"
+  },
+  {
+    "label": "p",
+    "snippet": "p"
+  },
+  {
+    "label": "param",
+    "snippet": "param"
+  },
+  {
+    "label": "pre",
+    "snippet": "pre"
+  },
+  {
+    "label": "progress",
+    "snippet": "progress"
+  },
+  {
+    "label": "q",
+    "snippet": "q"
+  },
+  {
+    "label": "rp",
+    "snippet": "rp"
+  },
+  {
+    "label": "rt",
+    "snippet": "rt"
+  },
+  {
+    "label": "ruby",
+    "snippet": "ruby"
+  },
+  {
+    "label": "s",
+    "snippet": "s"
+  },
+  {
+    "label": "samp",
+    "snippet": "samp"
+  },
+  {
+    "label": "script",
+    "snippet": "script"
+  },
+  {
+    "label": "section",
+    "snippet": "section"
+  },
+  {
+    "label": "select",
+    "snippet": "select"
+  },
+  {
+    "label": "search",
+    "snippet": "search"
+  },
+  {
+    "label": "small",
+    "snippet": "small"
+  },
+  {
+    "label": "source",
+    "snippet": "source"
+  },
+  {
+    "label": "span",
+    "snippet": "span"
+  },
+  {
+    "label": "strong",
+    "snippet": "strong"
+  },
+  {
+    "label": "style",
+    "snippet": "style"
+  },
+  {
+    "label": "sub",
+    "snippet": "sub"
+  },
+  {
+    "label": "sup",
+    "snippet": "sup"
+  },
+  {
+    "label": "table",
+    "snippet": "table"
+  },
+  {
+    "label": "tbody",
+    "snippet": "tbody"
+  },
+  {
+    "label": "td",
+    "snippet": "td"
+  },
+  {
+    "label": "textarea",
+    "snippet": "textarea"
+  },
+  {
+    "label": "tfoot",
+    "snippet": "tfoot"
+  },
+  {
+    "label": "th",
+    "snippet": "th"
+  },
+  {
+    "label": "thead",
+    "snippet": "thead"
+  },
+  {
+    "label": "time",
+    "snippet": "time"
+  },
+  {
+    "label": "title",
+    "snippet": "title"
+  },
+  {
+    "label": "tr",
+    "snippet": "tr"
+  },
+  {
+    "label": "track",
+    "snippet": "track"
+  },
+  {
+    "label": "u",
+    "snippet": "u"
+  },
+  {
+    "label": "ul",
+    "snippet": "ul"
+  },
+  {
+    "label": "var",
+    "snippet": "var"
+  },
+  {
+    "label": "video",
+    "snippet": "video"
+  },
+  {
+    "label": "wbr",
+    "snippet": "wbr"
+  }
+]
