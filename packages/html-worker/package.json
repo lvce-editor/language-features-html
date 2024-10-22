@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^29.4.2"
+    "jest": "^29.7.0"
   },
   "jest": {
     "injectGlobals": false,
