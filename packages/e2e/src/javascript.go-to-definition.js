@@ -1,4 +1,4 @@
-export const name = 'css.completion'
+export const name = 'javascript.go-to-definition'
 
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
