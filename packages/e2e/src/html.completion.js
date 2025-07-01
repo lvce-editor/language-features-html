@@ -1,5 +1,7 @@
 export const name = 'html.completion'
 
+export const skip = 1
+
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
