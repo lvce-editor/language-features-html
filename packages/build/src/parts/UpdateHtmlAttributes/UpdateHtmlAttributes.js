@@ -1,5 +1,5 @@
 // TODO update html attributes with vscode web custom data
-import htmlData from '@vscode/web-custom-data/data/browsers.html-data.json' assert { type: 'json' }
+import htmlData from '@vscode/web-custom-data/data/browsers.html-data.json' with { type: 'json' }
 import { join } from 'node:path'
 import * as JsonFile from '../JsonFile/JsonFile.js'
 import * as Root from '../Root/Root.js'
