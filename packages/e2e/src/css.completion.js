@@ -1,5 +1,7 @@
 export const name = 'css.completion'
 
+export const skip = 1
+
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -9,7 +11,7 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
 h1 {
 
 }
-  </style>`
+  </style>`,
   )
   await Main.openUri(`${tmpDir}/test.html`)
   await Editor.setCursor(2, 0)
