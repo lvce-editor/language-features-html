@@ -15,7 +15,9 @@
   "languages": [
     {
       "id": "html",
-      "extensions": [".html"]
+      "extensions": [
+        ".html"
+      ]
     }
   ],
   "commands": [
@@ -30,5 +32,6 @@
       "command": "html.wrapTag",
       "when": "focus.editor"
     }
-  ]
+  ],
+  "repository": "https://github.com/lvce-editor/language-features-html"
 }
