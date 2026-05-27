@@ -14,15 +14,15 @@
   "type": "module",
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
-    "@lvce-editor/eslint-config": "^4.6.0",
+    "@lvce-editor/eslint-config": "^10.6.0",
     "@lvce-editor/package-extension": "^3.2.0",
-    "@lvce-editor/server": "^0.70.19",
-    "eslint": "^9.39.2",
-    "jest": "^30.2.0",
+    "@lvce-editor/server": "^0.81.15",
+    "eslint": "^10.4.0",
+    "jest": "^30.4.2",
     "lerna": "^8.2.3",
-    "prettier": "^3.8.0",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3"
+    "prettier": "^3.8.3",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3"
   },
   "xo": {
     "rules": {
