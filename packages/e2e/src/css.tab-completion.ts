@@ -1,3 +1,5 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 const trimLines = (string) => {
   return string.split('\n').join('')
 }
@@ -6,7 +8,13 @@ export const skip = true
 
 export const name = 'css.tab-completion'
 
-export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
+export const test: Test = async ({
+  FileSystem,
+  Main,
+  Editor,
+  Locator,
+  expect,
+}) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
