@@ -1,6 +1,14 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'javascript.go-to-definition'
 
-export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
+export const test: Test = async ({
+  FileSystem,
+  Main,
+  Editor,
+  Locator,
+  expect,
+}) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -8,7 +16,7 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
     `<script>
 let x = 1
 x
-</script>`
+</script>`,
   )
   await Main.openUri(`${tmpDir}/test.html`)
   await Editor.setCursor(2, 1)
