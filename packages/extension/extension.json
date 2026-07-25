@@ -12,6 +12,13 @@
     "onDefinition:html"
   ],
   "browser": "src/languageFeaturesHtmlMain.js",
+  "isolated": true,
+  "completionProviders": [
+    {
+      "id": "html.provideCompletions.html",
+      "languageId": "html"
+    }
+  ],
   "languages": [
     {
       "id": "html",

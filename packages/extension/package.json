@@ -10,6 +10,7 @@
   "author": "",
   "type": "module",
   "devDependencies": {
+    "@lvce-editor/api": "^8.61.0",
     "jest": "^30.4.2"
   }
 }

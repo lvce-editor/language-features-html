@@ -1,3 +1,4 @@
+import { createRpc as createExtensionRpc } from '@lvce-editor/api'
 import * as HtmlWorkerUrl from '../HtmlWorkerUrl/HtmlWorkerUrl.js'
 
 export const state = {
@@ -10,8 +11,7 @@ export const state = {
 
 const createRpc = async () => {
   const workerUrl = HtmlWorkerUrl.getHtmlWorkerUrl()
-  // @ts-ignore
-  const rpc = await vscode.createRpc({ url: workerUrl, name: 'Html Worker' })
+  const rpc = await createExtensionRpc({ url: workerUrl, name: 'Html Worker' })
   return rpc
 }
 
