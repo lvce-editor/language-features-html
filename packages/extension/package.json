@@ -2,7 +2,7 @@
   "name": "builtin.language-features-html",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "src/languageFeaturesHtmlMain.js",
+  "main": "dist/languageFeaturesHtmlMain.js",
   "scripts": {
     "type-check": "tsc"
   },
@@ -10,6 +10,7 @@
   "author": "",
   "type": "module",
   "devDependencies": {
+    "@lvce-editor/api": "^8.61.0",
     "jest": "^30.4.2"
   }
 }

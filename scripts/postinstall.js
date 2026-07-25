@@ -1,9 +1,44 @@
+import { bundleJs } from '@lvce-editor/package-extension'
 import { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
+const extensionMain = join(
+  root,
+  'packages',
+  'extension',
+  'src',
+  'languageFeaturesHtmlMain.js',
+)
+const bundledExtensionMain = join(
+  root,
+  'packages',
+  'extension',
+  'dist',
+  'languageFeaturesHtmlMain.js',
+)
+const htmlWorkerMain = join(
+  root,
+  'packages',
+  'html-worker',
+  'src',
+  'htmlWorkerRpcMain.js',
+)
+const bundledHtmlWorkerMain = join(
+  root,
+  'packages',
+  'html-worker',
+  'dist',
+  'htmlWorkerMain.js',
+)
+
+const replaceAll = (filePath, occurrence, replacement) => {
+  const oldContent = readFileSync(filePath, 'utf8')
+  const newContent = oldContent.replaceAll(occurrence, replacement)
+  writeFileSync(filePath, newContent)
+}
 
 const typeScriptPath = join(
   root,
@@ -57,9 +92,22 @@ const modifyTypeScript = (typeScriptPath, typeScriptPathEsm) => {
   writeFileSync(typeScriptPathEsm, newContent4)
 }
 
-const main = () => {
+const main = async () => {
   modifyTypeScript(typeScriptPath, typeScriptPathEsm)
   removeSourceMapUrl(typeScriptPathEsm)
+  await bundleJs(extensionMain, bundledExtensionMain)
+  replaceAll(
+    bundledExtensionMain,
+    '../../../../html-worker/src/htmlWorkerMain.js',
+    '../../html-worker/dist/htmlWorkerMain.js',
+  )
+  await bundleJs(htmlWorkerMain, bundledHtmlWorkerMain)
+  replaceAll(
+    bundledHtmlWorkerMain,
+    '../../../../../node_modules/typescript/lib',
+    '../../../node_modules/typescript/lib',
+  )
+  replaceAll(bundledHtmlWorkerMain, '../../../${path}', '../${path}')
 }
 
-main()
+await main()

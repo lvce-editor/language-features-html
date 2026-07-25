@@ -11,7 +11,14 @@
     "onClosingTag:html",
     "onDefinition:html"
   ],
-  "browser": "src/languageFeaturesHtmlMain.js",
+  "browser": "dist/languageFeaturesHtmlMain.js",
+  "isolated": true,
+  "completionProviders": [
+    {
+      "id": "html.provideCompletions.html",
+      "languageId": "html"
+    }
+  ],
   "languages": [
     {
       "id": "html",
