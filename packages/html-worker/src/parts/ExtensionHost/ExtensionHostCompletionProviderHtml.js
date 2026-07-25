@@ -6,9 +6,7 @@ export const languageId = 'html'
 
 export const provideCompletions = (textDocument, offset) => {
   console.log('PROVIDER HTML COMPLETION')
-  // @ts-ignore
-  const text = vscode.getTextFromTextDocument(textDocument)
-  // @ts-ignore
+  const { text } = textDocument
   const completions = Completion.htmlCompletion(text, offset)
   console.log({ completions })
   return completions

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-top-level-side-effects */
 import {
   activate as activateExtensionApi,
   registerClosingTagProvider,
@@ -35,3 +36,5 @@ export const activate = async () => {
     id: 'html.provideClosingTag.html',
   })
 }
+
+await activate()

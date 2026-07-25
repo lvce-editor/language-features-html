@@ -16,7 +16,7 @@
     "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/eslint-config": "^17.0.3",
     "@lvce-editor/package-extension": "^3.2.0",
-    "@lvce-editor/server": "^0.81.15",
+    "@lvce-editor/server": "^0.93.19",
     "eslint": "^10.7.0",
     "jest": "^30.4.2",
     "lerna": "^8.2.3",

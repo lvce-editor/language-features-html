@@ -5,8 +5,7 @@ import * as TabCompletion from '../TabCompletion/TabCompletion.js'
 export const languageId = 'html'
 
 export const toggleComment = (textDocument, offset) => {
-  // @ts-ignore
-  const text = vscode.getTextFromTextDocument(textDocument)
+  const { text } = textDocument
   const tabCompletion = TabCompletion.htmlTabCompletion(text, offset)
   return tabCompletion
 }

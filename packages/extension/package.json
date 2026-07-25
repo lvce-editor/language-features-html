@@ -2,7 +2,7 @@
   "name": "builtin.language-features-html",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "src/languageFeaturesHtmlMain.js",
+  "main": "dist/languageFeaturesHtmlMain.js",
   "scripts": {
     "type-check": "tsc"
   },

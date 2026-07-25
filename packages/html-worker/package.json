@@ -31,5 +31,8 @@
         }
       ]
     }
+  },
+  "dependencies": {
+    "@lvce-editor/rpc": "^6.10.0"
   }
 }

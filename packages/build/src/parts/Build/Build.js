@@ -1,4 +1,4 @@
-import { packageExtension } from '@lvce-editor/package-extension'
+import { bundleJs, packageExtension } from '@lvce-editor/package-extension'
 import fs, { readFileSync, writeFileSync } from 'fs'
 import { cp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path, { join } from 'path'
@@ -21,6 +21,7 @@ delete packageJson.jest
 delete packageJson.prettier
 delete packageJson.devDependencies
 delete packageJson.scripts
+packageJson.main = 'dist/languageFeaturesHtmlMain.js'
 
 fs.writeFileSync(
   join(root, 'dist', 'package.json'),
@@ -53,6 +54,12 @@ for (const notNeeded of NOT_NEEDED) {
   fs.rmSync(join(root, 'dist', notNeeded), { force: true, recursive: true })
 }
 
+const replace = async (path, occurrence, replacement) => {
+  const oldContent = await readFile(path, 'utf8')
+  const newContent = oldContent.replaceAll(occurrence, replacement)
+  await writeFile(path, newContent)
+}
+
 const workerUrlFilePath = path.join(
   root,
   'dist',
@@ -64,18 +71,28 @@ const workerUrlFilePath = path.join(
 const oldContent = readFileSync(workerUrlFilePath, 'utf8')
 const newContent = oldContent.replace(
   '../../../../html-worker/src/htmlWorkerMain.js',
-  '../../../html-worker/src/htmlWorkerMain.js',
+  '../../../html-worker/dist/htmlWorkerMain.js',
 )
 writeFileSync(workerUrlFilePath, newContent)
 
+const bundledExtensionMain = join(
+  root,
+  'dist',
+  'dist',
+  'languageFeaturesHtmlMain.js',
+)
+await bundleJs(
+  join(extension, 'src', 'languageFeaturesHtmlMain.js'),
+  bundledExtensionMain,
+)
+await replace(
+  bundledExtensionMain,
+  '../../../../html-worker/src/htmlWorkerMain.js',
+  '../html-worker/dist/htmlWorkerMain.js',
+)
+
 const typeScriptLibPath = join(root, 'node_modules', 'typescript', 'lib')
 const typeScriptPath = join(root, 'node_modules', 'typescript')
-
-const replace = async (path, occurrence, replacement) => {
-  const oldContent = await readFile(path, 'utf8')
-  const newContent = oldContent.replace(occurrence, replacement)
-  await writeFile(path, newContent)
-}
 
 await mkdir(join(root, 'dist', 'typescript'))
 
@@ -114,6 +131,24 @@ await replace(
   '../../../../../node_modules/typescript/lib',
   `../../../../typescript/lib`,
 )
+
+const bundledHtmlWorkerMain = join(
+  root,
+  'dist',
+  'html-worker',
+  'dist',
+  'htmlWorkerMain.js',
+)
+await bundleJs(
+  join(htmlWorker, 'src', 'htmlWorkerRpcMain.js'),
+  bundledHtmlWorkerMain,
+)
+await replace(
+  bundledHtmlWorkerMain,
+  '../../../../../node_modules/typescript/lib',
+  '../../typescript/lib',
+)
+await replace(bundledHtmlWorkerMain, '../../../${path}', '../${path}')
 
 await packageExtension({
   highestCompression: true,
