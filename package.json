@@ -1,10 +1,13 @@
 {
   "name": "@lvce-editor/language-features-html",
   "version": "0.0.0-dev",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "postinstall": "lerna bootstrap --ci && node scripts/postinstall.js",
-    "test": "lerna run test",
-    "type-check": "lerna run type-check",
+    "postinstall": "node scripts/postinstall.js",
+    "test": "npm test --workspaces --if-present",
+    "type-check": "npm run type-check --workspaces --if-present",
     "dev": "node ./node_modules/@lvce-editor/server/bin/server.js --only-extension=packages/extension --test-path=packages/e2e",
     "e2e": "cd packages/e2e && npm run e2e",
     "e2e:headless": "cd packages/e2e && npm run e2e:headless"
@@ -13,13 +16,11 @@
   "author": "",
   "type": "module",
   "devDependencies": {
-    "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/eslint-config": "^17.0.3",
     "@lvce-editor/package-extension": "^3.2.0",
     "@lvce-editor/server": "^0.93.19",
     "eslint": "^10.7.0",
     "jest": "^30.4.2",
-    "lerna": "^8.2.3",
     "prettier": "^3.8.3",
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
