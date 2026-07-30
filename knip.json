@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.js"],
+      "project": ["scripts/**/*.js"]
+    },
+    "packages/build": {
+      "entry": ["src/computeNodeModulesCacheKey.js", "src/parts/Build/Build.js", "src/parts/BuildStatic/BuildStatic.js"],
+      "project": ["src/**/*.js"]
+    },
+    "packages/e2e": {
+      "entry": ["src/**/*.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/extension": {
+      "entry": ["src/languageFeaturesHtmlMain.js"],
+      "project": ["src/**/*.js"]
+    },
+    "packages/html-data": {
+      "project": ["src/**/*.js"]
+    },
+    "packages/html-worker": {
+      "entry": ["src/htmlWorkerRpcMain.js", "test/**/*.test.ts"],
+      "project": ["data/**/*.js", "src/**/*.js", "test/**/*.ts"]
+    },
+    "packages/integration": {
+      "entry": ["test/**/*.test.ts"],
+      "project": ["src/**/*.ts", "test/**/*.ts"]
+    }
+  }
+}

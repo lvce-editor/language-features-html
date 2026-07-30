@@ -1,7 +1,7 @@
 import { createRpc as createExtensionRpc } from '@lvce-editor/api'
 import * as HtmlWorkerUrl from '../HtmlWorkerUrl/HtmlWorkerUrl.js'
 
-export const state = {
+const state = {
   ipc: undefined,
   /**
    * @type {any}
