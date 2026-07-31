@@ -11,9 +11,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "jest": "^30.4.2"
-  },
   "jest": {
     "injectGlobals": false,
     "extensionsToTreatAsEsm": [
@@ -34,5 +31,8 @@
   },
   "dependencies": {
     "@lvce-editor/rpc": "^6.10.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.4.1"
   }
 }

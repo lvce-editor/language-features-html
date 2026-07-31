@@ -56,7 +56,7 @@ export const parseHtml = (text) => {
   return htmlDocument
 }
 
-export const findNodeAtOffset = (htmlDocument, offset) => {
+const findNodeAtOffset = (htmlDocument, offset) => {
   for (const child of htmlDocument.children) {
     child.start // ?
     child.end // ?

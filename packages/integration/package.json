@@ -12,7 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "@jest/globals": "^30.4.1"
+  },
   "jest": {
     "injectGlobals": false,
     "extensionsToTreatAsEsm": [

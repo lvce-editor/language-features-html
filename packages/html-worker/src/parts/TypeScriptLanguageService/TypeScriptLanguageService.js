@@ -1,6 +1,6 @@
 import * as TypeScriptLanguageServiceFactory from '../TypeScriptLanguageServiceFactory/TypeScriptLanguageServiceFactory.js'
 
-export const state = {
+const state = {
   /**
    * @type {Promise<any>|undefined}
    */

@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@vscode/web-custom-data": "^0.6.3"
+  "devDependencies": {
+    "@lvce-editor/shared-process": "^0.93.19"
   }
 }
