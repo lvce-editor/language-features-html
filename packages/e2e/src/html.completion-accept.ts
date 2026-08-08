@@ -1,13 +1,12 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'html.completion'
+export const name = 'html.completion-accept'
 
 export const test: Test = async ({
+  Editor,
+  EditorCompletion,
   FileSystem,
   Main,
-  Editor,
-  Locator,
-  expect,
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -17,10 +16,8 @@ export const test: Test = async ({
 
   // act
   await Editor.openCompletion()
+  await EditorCompletion.selectIndex(0)
 
   // assert
-  const completions = Locator('#Completions')
-  await expect(completions).toBeVisible()
-  const completionItems = completions.locator('.EditorCompletionItem')
-  await expect(completionItems.nth(0)).toHaveText('a')
+  await Editor.shouldHaveText('<a')
 }
