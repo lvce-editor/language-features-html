@@ -18,7 +18,7 @@
   "type": "module",
   "devDependencies": {
     "@lvce-editor/package-extension": "^3.2.0",
-    "@lvce-editor/server": "^0.99.17",
+    "@lvce-editor/server": "^0.103.19",
     "jest": "^30.4.2",
     "knip": "^6.29.0",
     "ts-jest": "^29.4.11",
