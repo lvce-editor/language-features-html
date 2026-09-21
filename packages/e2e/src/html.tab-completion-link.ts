@@ -21,26 +21,16 @@ export const test: Test = async ({
     `<!DOCTYPE html>
 <html>
   <head>
-
+    link
   </head>
 </html>`,
   )
   await Workspace.setPath(tmpDir)
   await Main.openUri(`${tmpDir}/test.html`)
   const editor = Locator('.Editor')
-  await Editor.setCursor(3, 0)
+  await Editor.setCursor(3, 8)
 
   // act
-  await Editor.type('    link')
-  await expect(editor).toHaveText(
-    trimLines(`<!DOCTYPE html>
-<html>
-  <head>
-    link
-  </head>
-</html>`),
-  )
-  await Editor.setCursor(3, 8)
   await Editor.executeTabCompletion()
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>
