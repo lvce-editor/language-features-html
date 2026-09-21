@@ -27,15 +27,23 @@ export const test: Test = async ({
   )
   await Main.openUri(`${tmpDir}/test.html`)
   await Editor.setCursor(3, 8)
+  const editor = Locator('.Editor')
 
   // act
   await Editor.executeTabCompletion()
+  await expect(editor).toHaveText(
+    trimLines(`<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="">
+  </head>
+</html>`),
+  )
   for (const character of 'style.css') {
     await KeyBoard.press(character)
   }
 
   // assert
-  const editor = Locator('.Editor')
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>
 <html>
