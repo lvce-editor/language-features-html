@@ -3,6 +3,9 @@ declare const ContextMenu: {
 }
 
 declare const Editor: {
+  readonly setSelections: (selections: Uint32Array) => Promise<void>
+  readonly shouldHaveText: (text: string) => Promise<void>
+  readonly undo: () => Promise<void>
   readonly setCursor: (rowIndex: number, columnIndex: number) => Promise<void>
   readonly openCompletion: () => Promise<void>
   readonly executeTabCompletion: () => Promise<void>
