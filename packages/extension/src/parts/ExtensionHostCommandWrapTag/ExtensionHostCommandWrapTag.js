@@ -65,5 +65,5 @@ export const execute = async () => {
       return [start.rowIndex, start.columnIndex, end.rowIndex, end.columnIndex]
     }),
   )
-  await executeCommand('Editor.applyEdit2', edits, selectionChanges)
+  await executeCommand('Editor.applyEdit', edits, selectionChanges)
 }
