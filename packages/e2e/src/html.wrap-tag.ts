@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'html.wrap-tag'
 
-export const test: Test = async ({ Editor, FileSystem, KeyBoard, Locator, Main }) => {
+export const test: Test = async ({ Command, Editor, FileSystem, KeyBoard, Locator, Main }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const uri = `${tmpDir}/test.html`
   await FileSystem.writeFile(uri, '<button>hello world</button>')
@@ -13,6 +13,6 @@ export const test: Test = async ({ Editor, FileSystem, KeyBoard, Locator, Main }
   await KeyBoard.press('Alt+w')
 
   await Editor.shouldHaveText('<div><button>hello world</button></div>')
-  await Editor.undo()
+  await Command.execute('Editor.undo')
   await Editor.shouldHaveText('<button>hello world</button>')
 }
