@@ -36,8 +36,7 @@
   "keyBindings": [
     {
       "key": "alt+w",
-      "command": "html.wrapTag",
-      "when": "focus.editor"
+      "command": "html.wrapTag"
     }
   ],
   "repository": "https://github.com/lvce-editor/language-features-html"
