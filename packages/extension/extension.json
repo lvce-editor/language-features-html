@@ -33,7 +33,7 @@
       "label": "Html: Wrap Tag"
     }
   ],
-  "keyBindings": [
+  "keybindings": [
     {
       "key": "alt+w",
       "command": "html.wrapTag"
