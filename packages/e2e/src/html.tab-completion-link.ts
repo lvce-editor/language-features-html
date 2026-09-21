@@ -21,15 +21,18 @@ export const test: Test = async ({
     `<!DOCTYPE html>
 <html>
   <head>
-    link
+
   </head>
 </html>`,
   )
   await Main.openUri(`${tmpDir}/test.html`)
-  await Editor.setCursor(3, 8)
+  await Editor.setCursor(3, 0)
   const editor = Locator('.Editor')
 
   // act
+  for (const character of '    link') {
+    await KeyBoard.press(character === ' ' ? 'Space' : character)
+  }
   await Editor.executeTabCompletion()
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>

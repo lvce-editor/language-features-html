@@ -60,7 +60,13 @@ test('snippet - form', async () => {
 })
 
 test('snippet - link', async () => {
-  expect(await htmlTabCompletion('', '<head>\n  link', 13)).toEqual({
+  const text = `<!DOCTYPE html>
+<html>
+  <head>
+    link
+  </head>
+</html>`
+  expect(await htmlTabCompletion('', text, text.indexOf('link') + 4)).toEqual({
     inserted: '<link rel="stylesheet" href="$0">',
     deleted: 4,
     type: /* Snippet */ 2,
