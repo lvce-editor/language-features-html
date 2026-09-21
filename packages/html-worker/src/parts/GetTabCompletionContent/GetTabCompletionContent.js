@@ -1,6 +1,7 @@
 import * as Assert from '../Assert/Assert.js'
 import * as GetEmbeddedContent from '../GetEmbeddedContent/GetEmbeddedContent.js'
 import * as TagName from '../TagName/TagName.js'
+import * as GetTabCompletionContentHtml from '../GetTabCompletionContentHtml/GetTabCompletionContentHtml.js'
 
 const getModule = (startTag) => {
   switch (startTag) {
@@ -13,9 +14,7 @@ const getModule = (startTag) => {
         '../GetTabCompletionContentScript/GetTabCompletionContentScript.js'
       )
     default:
-      return import(
-        '../GetTabCompletionContentHtml/GetTabCompletionContentHtml.js'
-      )
+      return GetTabCompletionContentHtml
   }
 }
 

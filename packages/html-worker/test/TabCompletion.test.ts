@@ -59,6 +59,22 @@ test('snippet - form', async () => {
   })
 })
 
+test.each([
+  'link',
+  `<!DOCTYPE html>
+<html>
+  <head>
+    link
+  </head>
+</html>`,
+])('snippet - link in %s', async (text) => {
+  expect(await htmlTabCompletion('', text, text.indexOf('link') + 4)).toEqual({
+    inserted: '<link rel="stylesheet" href="$0">',
+    deleted: 4,
+    type: /* Snippet */ 2,
+  })
+})
+
 test('at end of tag', async () => {
   expect(await htmlTabCompletion('', '<h1></h1> more text', 9)).toEqual(
     undefined

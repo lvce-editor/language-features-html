@@ -2,6 +2,7 @@ import * as GetIdTabCompletion from '../GetIdTabCompletion/GetIdTabCompletion.js
 
 const snippets = {
   input: '<input type="$0">$1',
+  link: '<link rel="stylesheet" href="$0">',
   hr: '<hr>$0',
   br: '<br>$0',
   meta: '<meta>$0',
