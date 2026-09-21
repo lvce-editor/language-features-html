@@ -10,7 +10,6 @@ export const test: Test = async ({
   FileSystem,
   Main,
   Editor,
-  KeyBoard,
   Locator,
   expect,
 }) => {
@@ -27,13 +26,10 @@ export const test: Test = async ({
   )
   await Main.openUri(`${tmpDir}/test.html`)
   const editor = Locator('.Editor')
-  await editor.click()
   await Editor.setCursor(3, 0)
 
   // act
-  for (const character of '    link') {
-    await KeyBoard.press(character === ' ' ? 'Space' : character)
-  }
+  await Editor.type('    link')
   await Editor.executeTabCompletion()
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>
@@ -43,9 +39,7 @@ export const test: Test = async ({
   </head>
 </html>`),
   )
-  for (const character of 'style.css') {
-    await KeyBoard.press(character)
-  }
+  await Editor.type('style.css')
 
   // assert
   await expect(editor).toHaveText(
