@@ -26,8 +26,9 @@ export const test: Test = async ({
 </html>`,
   )
   await Main.openUri(`${tmpDir}/test.html`)
-  await Editor.setCursor(3, 0)
   const editor = Locator('.Editor')
+  await editor.click()
+  await Editor.setCursor(3, 0)
 
   // act
   for (const character of '    link') {
