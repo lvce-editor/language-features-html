@@ -12,6 +12,7 @@ export const test: Test = async ({
   Editor,
   Locator,
   expect,
+  Workspace,
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -22,8 +23,9 @@ export const test: Test = async ({
   <head>
 
   </head>
-</html>`,
+    </html>`,
   )
+  await Workspace.setPath(tmpDir)
   await Main.openUri(`${tmpDir}/test.html`)
   const editor = Locator('.Editor')
   await Editor.setCursor(3, 0)
