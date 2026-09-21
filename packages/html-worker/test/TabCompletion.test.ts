@@ -59,6 +59,14 @@ test('snippet - form', async () => {
   })
 })
 
+test('snippet - link', async () => {
+  expect(await htmlTabCompletion('', '<head>\n  link', 13)).toEqual({
+    inserted: '<link rel="stylesheet" href="$0">',
+    deleted: 4,
+    type: /* Snippet */ 2,
+  })
+})
+
 test('at end of tag', async () => {
   expect(await htmlTabCompletion('', '<h1></h1> more text', 9)).toEqual(
     undefined
