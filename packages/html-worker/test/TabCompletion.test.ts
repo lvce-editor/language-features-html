@@ -59,13 +59,15 @@ test('snippet - form', async () => {
   })
 })
 
-test('snippet - link', async () => {
-  const text = `<!DOCTYPE html>
+test.each([
+  'link',
+  `<!DOCTYPE html>
 <html>
   <head>
     link
   </head>
-</html>`
+</html>`,
+])('snippet - link in %s', async (text) => {
   expect(await htmlTabCompletion('', text, text.indexOf('link') + 4)).toEqual({
     inserted: '<link rel="stylesheet" href="$0">',
     deleted: 4,
