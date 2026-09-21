@@ -25,13 +25,6 @@ const offsetAt = (text, rowIndex, columnIndex) => {
   return lines.slice(0, rowIndex).reduce((offset, line) => offset + line.length + 1, 0) + columnIndex
 }
 
-const getDocumentEdit = (text, edit) => ({
-  deleted: splitLines(text.slice(edit.start, edit.end)),
-  end: positionAt(text, edit.end),
-  inserted: splitLines(edit.inserted),
-  start: positionAt(text, edit.start),
-})
-
 export const execute = async () => {
   const editorId = await executeCommand('GetActiveEditor.getActiveEditorId')
   if (typeof editorId !== 'number' || editorId < 0) {
@@ -57,7 +50,11 @@ export const execute = async () => {
   if (!result || result.edits.length === 0) {
     return
   }
-  const edits = result.edits.map((edit) => getDocumentEdit(document.text, edit))
+  const edits = result.edits.map((edit) => ({
+    endOffset: edit.end,
+    inserted: edit.inserted,
+    startOffset: edit.start,
+  }))
   const selectionChanges = new Uint32Array(
     result.selections.flatMap((selection) => {
       const start = positionAt(result.text, selection.start)
@@ -65,5 +62,6 @@ export const execute = async () => {
       return [start.rowIndex, start.columnIndex, end.rowIndex, end.columnIndex]
     }),
   )
-  await executeCommand('Editor.applyEdit', edits, selectionChanges)
+  await executeCommand('Editor.applyDocumentEdits', edits)
+  await executeCommand('GetActiveEditor.setSelections', selectionChanges)
 }
