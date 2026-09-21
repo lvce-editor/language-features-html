@@ -10,7 +10,7 @@ export const test: Test = async ({ Editor, FileSystem, KeyBoard, Locator, Main }
   await Locator('.EditorInput textarea').click()
   await Editor.setSelections(new Uint32Array([0, 1, 0, 27]))
 
-  await KeyBoard.press('Alt+KeyW')
+  await KeyBoard.press('Alt+w')
 
   await Editor.shouldHaveText('<div><button>hello world</button></div>')
   await Editor.undo()
