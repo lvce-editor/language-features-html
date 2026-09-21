@@ -2,6 +2,7 @@
 import {
   activate as activateExtensionApi,
   registerClosingTagProvider,
+  registerCommand,
   registerCompletionProvider,
   registerDefinitionProvider,
   registerTabCompletionProvider,
@@ -9,6 +10,7 @@ import {
 import * as ClosingTagProvider from './parts/ExtensionHostClosingTagProviderHtml/ExtensionHostClosingTagProviderHtml.js'
 import * as CompletionProvider from './parts/ExtensionHostCompletionProviderHtml/ExtensionHostCompletionProviderHtml.js'
 import * as DefinitionProvider from './parts/ExtensionHostDefinitionProviderHtml/ExtensionHostDefinitionProviderHtml.js'
+import * as ExtensionHostCommandWrapTag from './parts/ExtensionHostCommandWrapTag/ExtensionHostCommandWrapTag.js'
 import * as TabCompletionProvider from './parts/ExtensionHostTabCompletionHtml/ExtensionHostTabCompletionHtml.js'
 
 let isActivated = false
@@ -35,6 +37,7 @@ export const activate = async () => {
     ...ClosingTagProvider,
     id: 'html.provideClosingTag.html',
   })
+  registerCommand(ExtensionHostCommandWrapTag)
 }
 
 await activate()
