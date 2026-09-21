@@ -38,7 +38,7 @@ export const test: Test = async ({
   <head>
     link
   </head>
-    </html>`),
+</html>`),
   )
   await Editor.setCursor(3, 8)
   await Editor.executeTabCompletion()
