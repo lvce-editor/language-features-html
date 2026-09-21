@@ -32,6 +32,7 @@ export const test: Test = async ({
 
   // act
   await Editor.type('    link')
+  await Editor.setCursor(3, 8)
   await Editor.executeTabCompletion()
   await expect(editor).toHaveText(
     trimLines(`<!DOCTYPE html>
