@@ -5,7 +5,7 @@ const SNIPPET_DOCTYPE = {
     <meta charset="UTF-8" />
     <title>Document</title>
   </head>
-  <body>
+  <body>$0
 
   </body>
 </html>
