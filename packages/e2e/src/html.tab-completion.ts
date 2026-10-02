@@ -5,8 +5,6 @@ const trimLines = (string) => {
 }
 
 export const name = 'html.tab-completion'
-export const skip = 1
-
 export const test: Test = async ({
   FileSystem,
   Main,
