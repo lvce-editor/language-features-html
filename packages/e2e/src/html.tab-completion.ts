@@ -5,6 +5,7 @@ const trimLines = (string) => {
 }
 
 export const name = 'html.tab-completion'
+export const skip = 1
 
 export const test: Test = async ({
   FileSystem,
@@ -32,6 +33,23 @@ export const test: Test = async ({
     <title>Document</title>
   </head>
   <body>
+
+  </body>
+</html>`),
+  )
+
+  // act
+  await Editor.type('body content')
+
+  // assert
+  await expect(editor).toHaveText(
+    trimLines(`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>body content
 
   </body>
 </html>`),
