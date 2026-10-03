@@ -59,6 +59,15 @@ test('snippet - form', async () => {
   })
 })
 
+test('snippet - img', async () => {
+  const text = '<body>\n  img\n</body>'
+  expect(await htmlTabCompletion('', text, text.indexOf('img') + 3)).toEqual({
+    inserted: '<img src="$0" alt="">',
+    deleted: 3,
+    type: /* Snippet */ 2,
+  })
+})
+
 test.each([
   'link',
   `<!DOCTYPE html>

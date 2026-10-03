@@ -9,7 +9,7 @@ const snippets = {
   div: '<div>\n\t$0\n</div>',
   h1: '<h1>$0</h1>',
   form: '<form action="">\n\n$0\n</form>',
-  img: '<img src="" alt="">',
+  img: '<img src="$0" alt="">',
   a: '<a href="">$0</a>',
   script: '<script type="module" src="$0"></script>',
 }
