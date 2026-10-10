@@ -1,5 +1,7 @@
 import { exportStatic } from '@lvce-editor/shared-process'
-import { cp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
+import { bundleJs } from '@lvce-editor/package-extension'
+import fs from 'node:fs'
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path, { join } from 'node:path'
 import { root } from '../Root/Root.js'
 
@@ -9,7 +11,7 @@ const { commitHash } = await exportStatic({
   root,
 })
 
-for (const dirent of ['src', 'data']) {
+for (const dirent of ['data']) {
   await cp(
     path.join(root, 'packages', 'html-worker', dirent),
     path.join(
@@ -25,16 +27,12 @@ for (const dirent of ['src', 'data']) {
   )
 }
 
-const workerUrlFilePath = path.join(
+const extensionDistPath = path.join(
   root,
   'dist',
   commitHash,
   'extensions',
   'builtin.language-features-html',
-  'src',
-  'parts',
-  'HtmlWorkerUrl',
-  'HtmlWorkerUrl.js',
 )
 
 const replace = async (path, occurrence, replacement) => {
@@ -45,9 +43,35 @@ const replace = async (path, occurrence, replacement) => {
 }
 
 await replace(
-  workerUrlFilePath,
+  join(extensionDistPath, 'extension.json'),
+  '"browser": "src/languageFeaturesHtmlMain.js"',
+  '"browser": "dist/languageFeaturesHtmlMain.js"',
+)
+
+await mkdir(join(extensionDistPath, 'dist'), { recursive: true })
+await mkdir(join(extensionDistPath, 'html-worker', 'dist'), { recursive: true })
+await bundleJs(
+  join(root, 'packages', 'extension', 'src', 'languageFeaturesHtmlMain.js'),
+  join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
+)
+await bundleJs(
+  join(root, 'packages', 'html-worker', 'src', 'htmlWorkerRpcMain.js'),
+  join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
+)
+await replace(
+  join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
   '../../../../html-worker/src/htmlWorkerMain.js',
-  '../../../html-worker/src/htmlWorkerMain.js',
+  '../html-worker/dist/htmlWorkerMain.js',
+)
+await replace(
+  join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
+  '../../../../../node_modules/typescript/lib',
+  '../../typescript/lib',
+)
+await replace(
+  join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
+  '../../../${path}',
+  '../${path}',
 )
 
 const typeScriptLibPath = join(root, 'node_modules', 'typescript', 'lib')
@@ -101,21 +125,19 @@ for (const dirent of ['README.md', 'LICENSE.txt', 'package.json']) {
   )
 }
 
-const typescriptPathFile = path.join(
-  root,
-  'dist',
-  commitHash,
-  'extensions',
-  'builtin.language-features-html',
-  'html-worker',
-  'src',
-  'parts',
-  'TypeScriptPath',
-  'TypeScriptPath.js',
-)
+await rm(join(extensionDistPath, 'src'), { recursive: true, force: true })
+await rm(join(extensionDistPath, 'html-worker', 'src'), {
+  recursive: true,
+  force: true,
+})
 
-await replace(
-  typescriptPathFile,
-  '../../../../../node_modules/typescript/lib',
-  `../../../../typescript/lib`,
-)
+for (const requiredPath of [
+  join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
+  join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
+  join(extensionDistPath, 'html-worker', 'data', 'html-tags.json'),
+  join(extensionDistPath, 'typescript', 'lib', 'typescript-esm.js'),
+]) {
+  if (!fs.existsSync(requiredPath)) {
+    throw new Error(`Missing static extension asset: ${requiredPath}`)
+  }
+}

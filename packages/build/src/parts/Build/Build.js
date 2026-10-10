@@ -33,12 +33,6 @@ fs.copyFileSync(
   join(extension, 'extension.json'),
   join(root, 'dist', 'extension.json'),
 )
-fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
-  recursive: true,
-})
-fs.cpSync(join(htmlWorker, 'src'), join(root, 'dist', 'html-worker', 'src'), {
-  recursive: true,
-})
 fs.cpSync(join(htmlWorker, 'data'), join(root, 'dist', 'html-worker', 'data'), {
   recursive: true,
 })
@@ -60,21 +54,6 @@ const replace = async (path, occurrence, replacement) => {
   await writeFile(path, newContent)
 }
 
-const workerUrlFilePath = path.join(
-  root,
-  'dist',
-  'src',
-  'parts',
-  'HtmlWorkerUrl',
-  'HtmlWorkerUrl.js',
-)
-const oldContent = readFileSync(workerUrlFilePath, 'utf8')
-const newContent = oldContent.replace(
-  '../../../../html-worker/src/htmlWorkerMain.js',
-  '../../../html-worker/dist/htmlWorkerMain.js',
-)
-writeFileSync(workerUrlFilePath, newContent)
-
 const bundledExtensionMain = join(
   root,
   'dist',
@@ -90,6 +69,13 @@ await replace(
   '../../../../html-worker/src/htmlWorkerMain.js',
   '../html-worker/dist/htmlWorkerMain.js',
 )
+
+const extensionJsonPath = join(root, 'dist', 'extension.json')
+const extensionJson = readFileSync(extensionJsonPath, 'utf8').replace(
+  '"browser": "src/languageFeaturesHtmlMain.js"',
+  '"browser": "dist/languageFeaturesHtmlMain.js"',
+)
+writeFileSync(extensionJsonPath, extensionJson)
 
 const typeScriptLibPath = join(root, 'node_modules', 'typescript', 'lib')
 const typeScriptPath = join(root, 'node_modules', 'typescript')
@@ -116,22 +102,6 @@ for (const dirent of ['README.md', 'LICENSE.txt', 'package.json']) {
   )
 }
 
-const typescriptPathFile = path.join(
-  root,
-  'dist',
-  'html-worker',
-  'src',
-  'parts',
-  'TypeScriptPath',
-  'TypeScriptPath.js',
-)
-
-await replace(
-  typescriptPathFile,
-  '../../../../../node_modules/typescript/lib',
-  `../../../../typescript/lib`,
-)
-
 const bundledHtmlWorkerMain = join(
   root,
   'dist',
@@ -149,6 +119,26 @@ await replace(
   '../../typescript/lib',
 )
 await replace(bundledHtmlWorkerMain, '../../../${path}', '../${path}')
+
+for (const requiredPath of [
+  join(root, 'dist', 'dist', 'languageFeaturesHtmlMain.js'),
+  join(root, 'dist', 'html-worker', 'dist', 'htmlWorkerMain.js'),
+  join(root, 'dist', 'html-worker', 'data', 'html-tags.json'),
+  join(root, 'dist', 'typescript', 'lib', 'typescript-esm.js'),
+]) {
+  if (!fs.existsSync(requiredPath)) {
+    throw new Error(`Missing production extension asset: ${requiredPath}`)
+  }
+}
+
+for (const sourcePath of [
+  join(root, 'dist', 'src'),
+  join(root, 'dist', 'html-worker', 'src'),
+]) {
+  if (fs.existsSync(sourcePath)) {
+    throw new Error(`Raw source directory must not be packaged: ${sourcePath}`)
+  }
+}
 
 await packageExtension({
   highestCompression: true,
