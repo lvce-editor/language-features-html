@@ -1,9 +1,9 @@
 import { exportStatic } from '@lvce-editor/shared-process'
 import { bundleJs } from '@lvce-editor/package-extension'
-import fs from 'node:fs'
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path, { join } from 'node:path'
 import { root } from '../Root/Root.js'
+import { validateProductionExtension } from '../ValidateProductionExtension/ValidateProductionExtension.js'
 
 const { commitHash } = await exportStatic({
   extensionPath: 'packages/extension',
@@ -23,7 +23,7 @@ for (const dirent of ['data']) {
       'html-worker',
       dirent,
     ),
-    { recursive: true, force: true },
+    { recursive: true, force: true, filter: (source) => !source.endsWith('.js') },
   )
 }
 
@@ -53,10 +53,12 @@ await mkdir(join(extensionDistPath, 'html-worker', 'dist'), { recursive: true })
 await bundleJs(
   join(root, 'packages', 'extension', 'src', 'languageFeaturesHtmlMain.js'),
   join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
+  false,
 )
 await bundleJs(
   join(root, 'packages', 'html-worker', 'src', 'htmlWorkerRpcMain.js'),
   join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
+  false,
 )
 await replace(
   join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
@@ -131,13 +133,4 @@ await rm(join(extensionDistPath, 'html-worker', 'src'), {
   force: true,
 })
 
-for (const requiredPath of [
-  join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
-  join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
-  join(extensionDistPath, 'html-worker', 'data', 'html-tags.json'),
-  join(extensionDistPath, 'typescript', 'lib', 'typescript-esm.js'),
-]) {
-  if (!fs.existsSync(requiredPath)) {
-    throw new Error(`Missing static extension asset: ${requiredPath}`)
-  }
-}
+await validateProductionExtension(extensionDistPath)

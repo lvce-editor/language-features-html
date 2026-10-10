@@ -3,6 +3,7 @@ import fs, { readFileSync, writeFileSync } from 'fs'
 import { cp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import path, { join } from 'path'
 import { root } from '../Root/Root.js'
+import { validateProductionExtension } from '../ValidateProductionExtension/ValidateProductionExtension.js'
 
 const NOT_NEEDED = []
 
@@ -35,6 +36,7 @@ fs.copyFileSync(
 )
 fs.cpSync(join(htmlWorker, 'data'), join(root, 'dist', 'html-worker', 'data'), {
   recursive: true,
+  filter: (source) => !source.endsWith('.js'),
 })
 
 const getAllDependencies = (obj) => {
@@ -63,6 +65,7 @@ const bundledExtensionMain = join(
 await bundleJs(
   join(extension, 'src', 'languageFeaturesHtmlMain.js'),
   bundledExtensionMain,
+  false,
 )
 await replace(
   bundledExtensionMain,
@@ -112,6 +115,7 @@ const bundledHtmlWorkerMain = join(
 await bundleJs(
   join(htmlWorker, 'src', 'htmlWorkerRpcMain.js'),
   bundledHtmlWorkerMain,
+  false,
 )
 await replace(
   bundledHtmlWorkerMain,
@@ -120,25 +124,7 @@ await replace(
 )
 await replace(bundledHtmlWorkerMain, '../../../${path}', '../${path}')
 
-for (const requiredPath of [
-  join(root, 'dist', 'dist', 'languageFeaturesHtmlMain.js'),
-  join(root, 'dist', 'html-worker', 'dist', 'htmlWorkerMain.js'),
-  join(root, 'dist', 'html-worker', 'data', 'html-tags.json'),
-  join(root, 'dist', 'typescript', 'lib', 'typescript-esm.js'),
-]) {
-  if (!fs.existsSync(requiredPath)) {
-    throw new Error(`Missing production extension asset: ${requiredPath}`)
-  }
-}
-
-for (const sourcePath of [
-  join(root, 'dist', 'src'),
-  join(root, 'dist', 'html-worker', 'src'),
-]) {
-  if (fs.existsSync(sourcePath)) {
-    throw new Error(`Raw source directory must not be packaged: ${sourcePath}`)
-  }
-}
+await validateProductionExtension(join(root, 'dist'))
 
 await packageExtension({
   highestCompression: true,
