@@ -6,6 +6,7 @@ import { tokenizeHtml } from '../TokenizeHtml/TokenizeHtml.js'
 import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAtOffset.js'
 import * as TokenType from '../TokenType/TokenType.js'
 import * as Assert from '../Assert/Assert.js'
+import * as GetAttributeValueCompletions from '../GetAttributeValueCompletions/GetAttributeValueCompletions.js'
 
 const NO_COMPLETIONS = []
 
@@ -35,6 +36,10 @@ export const htmlCompletion = (uri, text, offset) => {
       case TokenType.AttributeName:
       case TokenType.ClosingAngleBracket:
         return GetAttributeNameCompletions.getAttributeNameCompletions()
+      case TokenType.AttributeQuoteStart:
+      case TokenType.AttributeValue:
+      case TokenType.AttributeQuoteEnd:
+        return GetAttributeValueCompletions.getAttributeValueCompletions(tokens, index)
       case TokenType.WhitespaceAfterClosingTagSlash:
       case TokenType.ClosingTagSlash:
         return GetClosingTagCompletions.getClosingTagCompletions()

@@ -32,6 +32,35 @@ test('attribute name completions', async () => {
   })
 })
 
+test('input type value completions', async () => {
+  const text = '<input type="">'
+  const completions = await htmlCompletion('', text, text.indexOf('"') + 1)
+  expect(completions.map((item) => item.label)).toContain('number')
+  expect(completions.map((item) => item.label)).toContain('text')
+  expect(completions.map((item) => item.label)).toContain('url')
+})
+
+test('attribute value completions are scoped to the tag and attribute', async () => {
+  const complete = async (text) => htmlCompletion('', text, text.indexOf('"') + 1)
+  expect(await complete('<input type="tex">')).toContainEqual({
+    label: 'text',
+    snippet: 'text',
+    kind: 1,
+  })
+  expect(await complete('<div type="">')).toEqual([])
+  expect(await complete('<input title="">')).toEqual([])
+  expect((await htmlCompletion('', '<input type=tex>', 14)).map((item) => item.label)).toContain('text')
+})
+
+test('global enumerated attribute values', async () => {
+  const text = '<div dir="">'
+  expect((await htmlCompletion('', text, text.indexOf('"') + 1)).map((item) => item.label)).toEqual([
+    'ltr',
+    'rtl',
+    'auto',
+  ])
+})
+
 test('inside content', async () => {
   expect(await htmlCompletion('', '<h1>hello world</h1>', 4)).toEqual([])
   expect(await htmlCompletion('', '<h1>hello world</h1>', 6)).toEqual([])
