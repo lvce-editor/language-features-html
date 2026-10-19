@@ -13,6 +13,9 @@ const State = {
   InsideAttributeAfterDoubleQuote: 9,
   AfterAttributeValueInsideDoubleQuote: 10,
   AfterAttributeValueClosingQuote: 11,
+  InsideAttributeAfterSingleQuote: 12,
+  AfterAttributeValueInsideSingleQuote: 13,
+  AfterUnquotedAttributeValue: 14,
   AfterExclamationMark: 16,
   InsideComment: 17,
 }
@@ -27,7 +30,10 @@ const RE_WHITESPACE = /^\s+/
 const RE_ATTRIBUTE_NAME = /^[a-zA-Z\d\-]+/
 const RE_EQUAL_SIGN = /^=/
 const RE_DOUBLE_QUOTE = /^"/
+const RE_SINGLE_QUOTE = /^'/
 const RE_ATTRIBUTE_VALUE_INSIDE_DOUBLE_QUOTE = /^[^"\n]+/
+const RE_ATTRIBUTE_VALUE_INSIDE_SINGLE_QUOTE = /^[^'\n]+/
+const RE_UNQUOTED_ATTRIBUTE_VALUE = /^[^\s>]+/
 const RE_TEXT = /^[^<>]+/
 const RE_EXCLAMATION_MARK = /^!/
 const RE_DASH_DASH = /^--/
@@ -177,9 +183,15 @@ export const tokenizeHtml = (text) => {
         if ((next = part.match(RE_DOUBLE_QUOTE))) {
           token = TokenType.AttributeQuoteStart
           state = State.InsideAttributeAfterDoubleQuote
+        } else if ((next = part.match(RE_SINGLE_QUOTE))) {
+          token = TokenType.AttributeQuoteStart
+          state = State.InsideAttributeAfterSingleQuote
         } else if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
           token = TokenType.ClosingAngleBracket
           state = State.TopLevelContent
+        } else if ((next = part.match(RE_UNQUOTED_ATTRIBUTE_VALUE))) {
+          token = TokenType.AttributeValue
+          state = State.AfterUnquotedAttributeValue
         } else {
           throw new UnexpectedTokenError()
         }
@@ -203,6 +215,43 @@ export const tokenizeHtml = (text) => {
         if ((next = part.match(RE_DOUBLE_QUOTE))) {
           token = TokenType.AttributeQuoteEnd
           state = State.AfterAttributeValueClosingQuote
+        } else {
+          throw new UnexpectedTokenError()
+        }
+        break
+      case State.InsideAttributeAfterSingleQuote:
+        if (
+          (next = text
+            .slice(index)
+            .match(RE_ATTRIBUTE_VALUE_INSIDE_SINGLE_QUOTE))
+        ) {
+          token = TokenType.AttributeValue
+          state = State.AfterAttributeValueInsideSingleQuote
+        } else if ((next = part.match(RE_SINGLE_QUOTE))) {
+          token = TokenType.AttributeQuoteEnd
+          state = State.AfterAttributeValueClosingQuote
+        } else {
+          throw new UnexpectedTokenError()
+        }
+        break
+      case State.AfterAttributeValueInsideSingleQuote:
+        if ((next = part.match(RE_SINGLE_QUOTE))) {
+          token = TokenType.AttributeQuoteEnd
+          state = State.AfterAttributeValueClosingQuote
+        } else {
+          throw new UnexpectedTokenError()
+        }
+        break
+      case State.AfterUnquotedAttributeValue:
+        if ((next = part.match(RE_ANGLE_BRACKET_CLOSE))) {
+          token = TokenType.ClosingAngleBracket
+          state = State.TopLevelContent
+        } else if ((next = part.match(RE_WHITESPACE))) {
+          token = TokenType.WhitespaceInsideOpeningTag
+          state = State.InsideOpeningTagAfterWhitespace
+        } else if ((next = part.match(RE_SELF_CLOSING))) {
+          token = TokenType.ClosingAngleBracket
+          state = State.TopLevelContent
         } else {
           throw new UnexpectedTokenError()
         }
