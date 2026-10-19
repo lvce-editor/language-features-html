@@ -26,6 +26,13 @@ test('goes to a script source target', () => {
   })
 })
 
+test('preserves the local document URI scheme', () => {
+  const text = '<script src="app.js"></script>'
+  expect(htmlDefinition('memfs:///workspace/index.html', text, text.indexOf('app.js'))).toMatchObject({
+    uri: 'memfs:///workspace/app.js',
+  })
+})
+
 test('supports single quoted and unquoted references', () => {
   expect(getDefinition("<script src='app.js'></script>", 'app.js')).toMatchObject({
     uri: 'file:///workspace/project/app.js',

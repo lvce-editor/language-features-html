@@ -69,11 +69,14 @@ const getAttributeValueDefinition = (uri, tokens, index, offset) => {
   }
   try {
     const documentUrl = new URL(uri)
-    if (documentUrl.protocol !== 'file:' || !valueToken.text) {
+    if (
+      !['file:', 'memfs:'].includes(documentUrl.protocol) ||
+      !valueToken.text
+    ) {
       return NO_DEFINITION
     }
     const targetUrl = new URL(valueToken.text, documentUrl)
-    if (targetUrl.protocol !== 'file:' || targetUrl.hash) {
+    if (targetUrl.protocol !== documentUrl.protocol || targetUrl.hash) {
       return NO_DEFINITION
     }
     return {

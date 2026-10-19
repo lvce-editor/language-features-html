@@ -1,8 +1,5 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-const toFileUri = (path: string) =>
-  `file://${path.split('/').map(encodeURIComponent).join('/')}`
-
 export const name = 'javascript.go-to-definition'
 
 export const test: Test = async ({
@@ -27,8 +24,9 @@ export const test: Test = async ({
   await Editor.goToDefinition()
 
   // assert
-  const activeCssUri = await Command.execute('GetActiveEditor.getActiveUri')
-  if (activeCssUri !== toFileUri(`${tmpDir}/index.css`)) {
+  const activeCssDocument = await Command.execute('GetActiveEditor.getTextDocument')
+  const activeCssUri = activeCssDocument?.uri
+  if (activeCssUri !== `${tmpDir}/index.css`) {
     throw new Error(`Expected CSS file to open, got ${activeCssUri}`)
   }
 
@@ -38,8 +36,9 @@ export const test: Test = async ({
   await Editor.goToDefinition()
 
   // assert
-  const activeScriptUri = await Command.execute('GetActiveEditor.getActiveUri')
-  if (activeScriptUri !== toFileUri(`${tmpDir}/app.js`)) {
+  const activeScriptDocument = await Command.execute('GetActiveEditor.getTextDocument')
+  const activeScriptUri = activeScriptDocument?.uri
+  if (activeScriptUri !== `${tmpDir}/app.js`) {
     throw new Error(`Expected JavaScript file to open, got ${activeScriptUri}`)
   }
 }
