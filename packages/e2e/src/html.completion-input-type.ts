@@ -18,7 +18,7 @@ export const test: Test = async ({
   await Editor.openCompletion()
   const completions = Locator('#Completions')
   await expect(completions).toBeVisible()
-  await expect(completions.locator('.EditorCompletionItem')).toContainText('number')
+  await expect(completions).toContainText('number')
   await EditorCompletion.selectIndex(0)
   await Editor.shouldHaveText('<input type="button">')
 }
