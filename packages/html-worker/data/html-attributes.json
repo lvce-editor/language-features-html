@@ -429,5 +429,158 @@
     {
       "name": "aria-keyshortcuts"
     }
+  ],
+  "attributesWithValues": [
+    {
+      "tagName": "input",
+      "name": "type",
+      "values": [
+        "button",
+        "checkbox",
+        "color",
+        "date",
+        "datetime-local",
+        "email",
+        "file",
+        "hidden",
+        "image",
+        "month",
+        "number",
+        "password",
+        "radio",
+        "range",
+        "reset",
+        "search",
+        "submit",
+        "tel",
+        "text",
+        "time",
+        "url",
+        "week"
+      ]
+    },
+    {
+      "tagName": "button",
+      "name": "type",
+      "values": [
+        "button",
+        "reset",
+        "submit"
+      ]
+    },
+    {
+      "tagName": "ol",
+      "name": "type",
+      "values": [
+        "1",
+        "a",
+        "A",
+        "i",
+        "I"
+      ]
+    },
+    {
+      "tagName": "link",
+      "name": "rel",
+      "values": [
+        "alternate",
+        "author",
+        "canonical",
+        "dns-prefetch",
+        "help",
+        "icon",
+        "license",
+        "manifest",
+        "modulepreload",
+        "next",
+        "pingback",
+        "preconnect",
+        "prefetch",
+        "preload",
+        "prev",
+        "search",
+        "stylesheet"
+      ]
+    },
+    {
+      "tagName": "script",
+      "name": "type",
+      "values": [
+        "module",
+        "importmap",
+        "application/json",
+        "text/javascript"
+      ]
+    },
+    {
+      "tagName": "form",
+      "name": "method",
+      "values": [
+        "get",
+        "post",
+        "dialog"
+      ]
+    },
+    {
+      "tagName": "form",
+      "name": "enctype",
+      "values": [
+        "application/x-www-form-urlencoded",
+        "multipart/form-data",
+        "text/plain"
+      ]
+    },
+    {
+      "tagName": "form",
+      "name": "target",
+      "values": [
+        "_self",
+        "_blank",
+        "_parent",
+        "_top"
+      ]
+    },
+    {
+      "tagName": "a",
+      "name": "target",
+      "values": [
+        "_self",
+        "_blank",
+        "_parent",
+        "_top"
+      ]
+    }
+  ],
+  "globalAttributesWithValues": [
+    {
+      "name": "dir",
+      "values": [
+        "ltr",
+        "rtl",
+        "auto"
+      ]
+    },
+    {
+      "name": "contenteditable",
+      "values": [
+        "true",
+        "false",
+        "plaintext-only"
+      ]
+    },
+    {
+      "name": "draggable",
+      "values": [
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "spellcheck",
+      "values": [
+        "true",
+        "false"
+      ]
+    }
   ]
 }
