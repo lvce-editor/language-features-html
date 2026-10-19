@@ -11,6 +11,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/shared-process": "^0.116.12"
+    "@lvce-editor/shared-process": "^0.124.3"
   }
 }
