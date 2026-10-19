@@ -32,7 +32,7 @@ export const test: Test = async ({
   </head>
   <body>
 
-  </body>
+      </body>
 </html>`),
   )
 
@@ -47,7 +47,8 @@ export const test: Test = async ({
     <meta charset="UTF-8" />
     <title>Document</title>
   </head>
-  <body>body content
+  <body>
+    body content
 
   </body>
 </html>`),
