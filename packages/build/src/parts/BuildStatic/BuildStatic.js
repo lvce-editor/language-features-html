@@ -23,7 +23,11 @@ for (const dirent of ['data']) {
       'html-worker',
       dirent,
     ),
-    { recursive: true, force: true, filter: (source) => !source.endsWith('.js') },
+    {
+      recursive: true,
+      force: true,
+      filter: (source) => !source.endsWith('.js'),
+    },
   )
 }
 
@@ -55,6 +59,9 @@ await bundleJs(
   join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js'),
   false,
 )
+await rm(join(extensionDistPath, 'dist', 'languageFeaturesHtmlMain.js.map'), {
+  force: true,
+})
 await bundleJs(
   join(root, 'packages', 'html-worker', 'src', 'htmlWorkerRpcMain.js'),
   join(extensionDistPath, 'html-worker', 'dist', 'htmlWorkerMain.js'),
