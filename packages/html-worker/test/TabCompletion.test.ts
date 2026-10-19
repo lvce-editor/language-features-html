@@ -41,7 +41,8 @@ test('snippet - doctype', async () => {
     <meta charset=\"UTF-8\" />
     <title>Document</title>
   </head>
-  <body>$0
+  <body>
+    $0
 
   </body>
 </html>
