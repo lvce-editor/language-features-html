@@ -21,17 +21,13 @@ test('uses HTML comments in ordinary markup', () => {
 })
 
 test('provides JavaScript line comments and HTML block fallback', () => {
-  globalThis.vscode = { getTextFromTextDocument: ({ text }) => text }
   const text = '<script type="module">const value = 1</script>'
   const textDocument = { text }
   expect(CommentProvider.provideComment(textDocument, text.indexOf('const'))).toEqual(['//', ''])
   expect(CommentProvider.provideComment(textDocument, 0)).toEqual(['<!--', '-->'])
-  delete globalThis.vscode
 })
 
 test('provides CSS block comments in style content', () => {
-  globalThis.vscode = { getTextFromTextDocument: ({ text }) => text }
   const text = '<style>body { color: red }</style>'
   expect(CommentProvider.provideComment({ text }, text.indexOf('body'))).toEqual(['/*', '*/'])
-  delete globalThis.vscode
 })
