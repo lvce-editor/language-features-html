@@ -8,6 +8,7 @@ import * as TabCompletion from '../TabCompletion/TabCompletion.js'
 export const commandMap = {
   [HtmlWorkerCommandType.GetTabCompletion]: TabCompletion.htmlTabCompletion,
   [HtmlWorkerCommandType.GetCompletion]: Completion.htmlCompletion,
+  [HtmlWorkerCommandType.GetStylesheetPathCompletionContext]: Completion.getStylesheetPathCompletionContext,
   [HtmlWorkerCommandType.GetClosingTag]: ClosingTag.getClosingTag,
   [HtmlWorkerCommandType.GetDefinition]: Definition.htmlDefinition,
   [HtmlWorkerCommandType.WrapTag]: ExtensionHostCommandWrapTag.execute,

@@ -1,5 +1,6 @@
 export const GetTabCompletion = 'Html.getTabCompletion'
 export const GetCompletion = 'Html.getCompletion'
+export const GetStylesheetPathCompletionContext = 'Html.getStylesheetPathCompletionContext'
 export const GetClosingTag = 'Html.getClosingTag'
 export const GetDefinition = 'Html.getDefinition'
 export const WrapTag = 'Html.wrapTag'
