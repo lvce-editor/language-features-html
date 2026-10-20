@@ -18,6 +18,7 @@ export const getEmbeddedLanguage = (text, offset) => {
 export const languageId = 'html'
 
 export const provideComment = (textDocument, offset) => {
+  // @ts-ignore
   const text = vscode.getTextFromTextDocument(textDocument)
   const language = getEmbeddedLanguage(text, offset)
   if (language === 'script') {
