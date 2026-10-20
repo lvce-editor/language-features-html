@@ -11,3 +11,8 @@ export const htmlCompletion = async (uri, text, offset) => {
   )
   return result
 }
+
+export const getStylesheetPathCompletionContext = async (text, offset) => {
+  const rpc = await HtmlWorker.getInstance()
+  return rpc.invoke(HtmlWorkerCommandType.GetStylesheetPathCompletionContext, text, offset)
+}

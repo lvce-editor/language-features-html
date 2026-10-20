@@ -7,6 +7,7 @@ import * as GetTokenIndexAtOffset from '../GetTokenIndexAtOffset/GetTokenIndexAt
 import * as TokenType from '../TokenType/TokenType.js'
 import * as Assert from '../Assert/Assert.js'
 import * as GetAttributeValueCompletions from '../GetAttributeValueCompletions/GetAttributeValueCompletions.js'
+import * as GetStylesheetPathCompletionContext from '../GetStylesheetPathCompletionContext/GetStylesheetPathCompletionContext.js'
 
 const NO_COMPLETIONS = []
 
@@ -57,6 +58,16 @@ export const htmlCompletion = (uri, text, offset) => {
     console.error(error)
   }
   return NO_COMPLETIONS
+}
+
+export const getStylesheetPathCompletionContext = (text, offset) => {
+  try {
+    const tokens = tokenizeHtml(text)
+    const index = GetTokenIndexAtOffset.getTokenIndexAtOffset(tokens, offset)
+    return GetStylesheetPathCompletionContext.getStylesheetPathCompletionContext(tokens, index, offset)
+  } catch {
+    return undefined
+  }
 }
 
 // htmlAutoCompletion('<h1></', {

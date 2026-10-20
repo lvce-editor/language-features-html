@@ -1,4 +1,4 @@
-import { htmlCompletion } from '../src/parts/Completion/Completions.js'
+import { getStylesheetPathCompletionContext, htmlCompletion } from '../src/parts/Completion/Completions.js'
 import { test, expect } from '@jest/globals'
 
 test('start tag completions', async () => {
@@ -98,4 +98,27 @@ h1 {
     snippet: 'color: ',
     kind: 1,
   })
+})
+
+test('stylesheet href path completion context', () => {
+  const getContext = (text, marker) => getStylesheetPathCompletionContext(text, text.indexOf(marker) + marker.length)
+  expect(getContext('<link rel="stylesheet" href="">', 'href="')).toEqual({
+    directoryPath: '.',
+    pathPrefix: '',
+    filePrefix: '',
+  })
+  expect(getContext('<link rel="stylesheet" href="inde">', 'inde')).toEqual({
+    directoryPath: '.',
+    pathPrefix: '',
+    filePrefix: 'inde',
+  })
+  expect(getContext("<link href='./styles/inde' rel='stylesheet'>", 'inde')).toEqual({
+    directoryPath: './styles',
+    pathPrefix: './styles/',
+    filePrefix: 'inde',
+  })
+  expect(getContext('<link rel="icon" href="inde">', 'inde')).toBeUndefined()
+  expect(getContext('<a href="inde">', 'inde')).toBeUndefined()
+  expect(getContext('<link rel="stylesheet" href="/inde">', 'inde')).toBeUndefined()
+  expect(getContext('<link rel="stylesheet" href="https://example.com/inde">', 'inde')).toBeUndefined()
 })
